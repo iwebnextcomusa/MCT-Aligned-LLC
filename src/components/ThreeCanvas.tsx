@@ -27,31 +27,31 @@ export default function ThreeCanvas({ scrollPercent }: ThreeCanvasProps) {
   const mouseRef = useRef({ x: 0, y: 0, isHovering: false });
   const timeRef = useRef(0);
 
-  // Define key nodes in the MCT Aligned model
+  // Define key nodes optimized strictly for the ShareLoop Orange & Green production model
   const hubs: HubNode[] = [
     {
       id: "supplier",
-      name: "1. Worker & Creator Pool",
+      name: "1. Raw Work & Production",
       cx: 0.22,
       cy: 0.72,
-      color: "#28A745",
-      description: "Service producers earning fair direct value without middleman erosion."
+      color: "#22c55e", // Vibrant Green
+      description: "Original producers and builders receiving full direct funding."
     },
     {
       id: "pipeline",
-      name: "2. MCT Aligned Pipeline",
+      name: "2. ShareLoop Direct Batch",
       cx: 0.50,
       cy: 0.50,
-      color: "#123456",
-      description: "Direct connection pipeline minimizing operational overhead and markups."
+      color: "#f97316", // Brilliant Orange
+      description: "Direct batch connection pipeline removing 5.6 intermediate stages."
     },
     {
       id: "buyer",
-      name: "3. Direct Client Terminal",
+      name: "3. Direct Value Terminal",
       cx: 0.78,
       cy: 0.28,
-      color: "#007BFF",
-      description: "Buyer organizations and clients receiving direct quality and cost efficiency."
+      color: "#22c55e", // Supporting Vibrant Green
+      description: "Buyers retaining maximum purchasing power at direct production costs."
     }
   ];
 
@@ -59,7 +59,7 @@ export default function ThreeCanvas({ scrollPercent }: ThreeCanvasProps) {
     scrollRef.current = scrollPercent;
   }, [scrollPercent]);
 
-  // Pre-load the high-quality business model graphic
+  // Pre-load the high-quality corporate board landscape
   useEffect(() => {
     const img = new Image();
     img.src = "/src/assets/images/corporate_aligned_landscape_1782155335259.jpg";
@@ -125,11 +125,11 @@ export default function ThreeCanvas({ scrollPercent }: ThreeCanvasProps) {
         setActiveHubId(null);
         // Default readout driven by vertical scroll state
         if (scrollRef.current < 0.25) {
-          setHoveredNodeInfo("Fragmented ecosystem: Isolated workers & costly intermediaries");
+          setHoveredNodeInfo("Traditional chain: 5.6 paid margins layer intermediate bloat.");
         } else if (scrollRef.current < 0.70) {
-          setHoveredNodeInfo("Realigning paths: Decompressing secondary administrative markups");
+          setHoveredNodeInfo("Shared Production: Funding batches directly to squeeze out middlemen.");
         } else {
-          setHoveredNodeInfo("MCT Aligned direct channels: Stable buyer-to-worker pipeline");
+          setHoveredNodeInfo("Direct Alignment: Creators retain value & buyers secure wholesale price.");
         }
       }
     };
@@ -154,11 +154,11 @@ export default function ThreeCanvas({ scrollPercent }: ThreeCanvasProps) {
 
       timeRef.current += 0.015;
 
-      // 1. Clear background
-      ctx.fillStyle = "#ffffff";
+      // 1. Clear background block (dark color scheme)
+      ctx.fillStyle = "#050811";
       ctx.fillRect(0, 0, width, height);
 
-      // 2. Draw business model image (aspect filled)
+      // 2. Draw background picture under fine blend
       if (imageRef.current) {
         const img = imageRef.current;
         const imgRatio = img.width / img.height;
@@ -176,16 +176,32 @@ export default function ThreeCanvas({ scrollPercent }: ThreeCanvasProps) {
           drawX = (width - drawW) / 2;
         }
 
-        ctx.globalAlpha = 0.88; // Subtle fade for elegant blending with neon lines
+        ctx.globalAlpha = 0.25; // Transparent subtle corporate overlay to capture high-tech board look
         ctx.drawImage(img, drawX, drawY, drawW, drawH);
         ctx.globalAlpha = 1.0;
+      }
+
+      // Draw futuristic visual grid background on canvas
+      ctx.strokeStyle = "rgba(255, 255, 255, 0.03)";
+      ctx.lineWidth = 1;
+      const gridSize = 40;
+      for (let x = 0; x < width; x += gridSize) {
+        ctx.beginPath();
+        ctx.moveTo(x, 0);
+        ctx.lineTo(x, height);
+        ctx.stroke();
+      }
+      for (let y = 0; y < height; y += gridSize) {
+        ctx.beginPath();
+        ctx.moveTo(0, y);
+        ctx.lineTo(width, y);
+        ctx.stroke();
       }
 
       // 3. Smoothly lerp current scroll percent to avoid jerky transitions
       currentScrollRef.current += (scrollRef.current - currentScrollRef.current) * 0.08;
 
-      // 4. Draw Connecting Stream Paths (MCT Direct Alignment Tube)
-      // Line from supplier center to pipeline center to buyer center
+      // 4. Draw Connecting Stream Paths (ShareLoop Orange and Green Pipeline)
       ctx.beginPath();
       ctx.moveTo(hubs[0].cx * width, hubs[0].cy * height);
       ctx.lineTo(hubs[1].cx * width, hubs[1].cy * height);
@@ -195,126 +211,123 @@ export default function ThreeCanvas({ scrollPercent }: ThreeCanvasProps) {
         hubs[0].cx * width, hubs[0].cy * height,
         hubs[2].cx * width, hubs[2].cy * height
       );
-      gradient.addColorStop(0, "#28A745");
-      gradient.addColorStop(0.5, "#123456");
-      gradient.addColorStop(1, "#007BFF");
+      gradient.addColorStop(0, "#22c55e");  // Green
+      gradient.addColorStop(0.5, "#f97316"); // Orange middle
+      gradient.addColorStop(1, "#22c55e");  // Green
       
       ctx.strokeStyle = gradient;
-      ctx.lineWidth = 4;
+      ctx.lineWidth = 5;
       ctx.lineCap = "round";
       ctx.lineJoin = "round";
-      ctx.shadowBlur = 10;
-      ctx.shadowColor = "rgba(40, 167, 69, 0.3)";
+      ctx.shadowBlur = 15;
+      ctx.shadowColor = "rgba(249, 115, 22, 0.4)";
       ctx.stroke();
       ctx.shadowBlur = 0; // reset shadow
 
-      // Draw dashed active overlay inside the tube for energy flow
+      // Draw flowing dashes for direct transactions energy line
       ctx.beginPath();
       ctx.moveTo(hubs[0].cx * width, hubs[0].cy * height);
       ctx.lineTo(hubs[1].cx * width, hubs[1].cy * height);
       ctx.lineTo(hubs[2].cx * width, hubs[2].cy * height);
       ctx.strokeStyle = "#ffffff";
-      ctx.lineWidth = 1.5;
-      ctx.setLineDash([8, 12]);
-      ctx.lineDashOffset = -timeRef.current * 25;
+      ctx.lineWidth = 2;
+      ctx.setLineDash([10, 15]);
+      ctx.lineDashOffset = -timeRef.current * 30;
       ctx.stroke();
-      ctx.setLineDash([]); // reset dashees
+      ctx.setLineDash([]); // reset
 
       // 5. Draw Animated Stream Energy Pulse guided by Scroll
       const t = currentScrollRef.current;
       let fx = 0, fy = 0;
       if (t < 0.5) {
-        // Interpolate Hub 1 -> Hub 2
         const nt = t * 2;
         fx = (hubs[0].cx + (hubs[1].cx - hubs[0].cx) * nt) * width;
         fy = (hubs[0].cy + (hubs[1].cy - hubs[0].cy) * nt) * height;
       } else {
-        // Interpolate Hub 2 -> Hub 3
         const nt = (t - 0.5) * 2;
         fx = (hubs[1].cx + (hubs[2].cx - hubs[1].cx) * nt) * width;
         fy = (hubs[1].cy + (hubs[2].cy - hubs[1].cy) * nt) * height;
       }
 
-      // Add miniature float offset
-      const pulseFloatY = Math.sin(timeRef.current * 4) * 2;
+      const pulseFloatY = Math.sin(timeRef.current * 5) * 3;
       const finalFx = fx;
       const finalFy = fy + pulseFloatY;
 
-      // Outer glow of pulse
-      const pulseGlow = ctx.createRadialGradient(finalFx, finalFy, 0, finalFx, finalFy, 18);
-      pulseGlow.addColorStop(0, "rgba(40, 167, 69, 0.8)");
-      pulseGlow.addColorStop(0.5, "rgba(18, 52, 86, 0.4)");
-      pulseGlow.addColorStop(1, "rgba(255, 255, 255, 0)");
+      // Outer orange glow pulse
+      const pulseGlow = ctx.createRadialGradient(finalFx, finalFy, 0, finalFx, finalFy, 24);
+      pulseGlow.addColorStop(0, "rgba(249, 115, 22, 0.8)");
+      pulseGlow.addColorStop(0.5, "rgba(34, 197, 150, 0.3)");
+      pulseGlow.addColorStop(1, "rgba(5, 8, 17, 0)");
       ctx.fillStyle = pulseGlow;
       ctx.beginPath();
-      ctx.arc(finalFx, finalFy, 18, 0, Math.PI * 2);
+      ctx.arc(finalFx, finalFy, 24, 0, Math.PI * 2);
       ctx.fill();
 
-      // Core center of pulse
-      ctx.fillStyle = "#28A745";
+      // Core white of pulse
+      ctx.fillStyle = "#ffffff";
       ctx.beginPath();
       ctx.arc(finalFx, finalFy, 6, 0, Math.PI * 2);
       ctx.fill();
 
-      // 6. Draw interactive Hub Circles with premium vector graphics
+      // 6. Draw interactive Hub Circles
       hubs.forEach((hub) => {
         const hx = hub.cx * width;
         const hy = hub.cy * height;
         const isActive = activeHubId === hub.id;
 
-        // Base pulsing variable
-        const pulse = Math.sin(timeRef.current * 3 + (hub.id === "pipeline" ? 1 : 2)) * 4;
-        const ringRadius = 24 + (isActive ? 6 : 0) + pulse;
+        // Pulsing circles
+        const pulse = Math.sin(timeRef.current * 4 + (hub.id === "pipeline" ? 2 : 1)) * 3;
+        const ringRadius = 24 + (isActive ? 8 : 0) + pulse;
 
-        // Subtle outer transparent halo ring
+        // Outer halo
         ctx.beginPath();
         ctx.arc(hx, hy, ringRadius, 0, Math.PI * 2);
         ctx.strokeStyle = hub.color;
-        ctx.lineWidth = isActive ? 2 : 1;
-        ctx.globalAlpha = isActive ? 0.6 : 0.25;
+        ctx.lineWidth = isActive ? 3 : 1.5;
+        ctx.globalAlpha = isActive ? 0.8 : 0.35;
         ctx.stroke();
         ctx.globalAlpha = 1.0;
 
         // Interactive core button
         ctx.beginPath();
-        ctx.arc(hx, hy, 12, 0, Math.PI * 2);
+        ctx.arc(hx, hy, 14, 0, Math.PI * 2);
         ctx.fillStyle = hub.color;
-        ctx.shadowBlur = isActive ? 12 : 4;
+        ctx.shadowBlur = isActive ? 20 : 8;
         ctx.shadowColor = hub.color;
         ctx.fill();
         ctx.shadowBlur = 0; // reset
 
-        // Inner white dot
+        // Inner white ring/dot
         ctx.beginPath();
-        ctx.arc(hx, hy, 4, 0, Math.PI * 2);
+        ctx.arc(hx, hy, 5, 0, Math.PI * 2);
         ctx.fillStyle = "#ffffff";
         ctx.fill();
 
-        // Elegant minimal label tag
-        ctx.fillStyle = "rgba(18, 52, 86, 0.9)";
-        ctx.font = "bold 10px monospace";
+        // Label tags in modern mono dark badge
+        const text = hub.name.toUpperCase();
+        ctx.font = "bold 9px monospace";
         ctx.textAlign = "center";
         ctx.textBaseline = "middle";
         
-        // Draw backing label badge
-        const text = hub.name.toUpperCase();
         const textWidth = ctx.measureText(text).width;
-        ctx.fillStyle = "rgba(255, 255, 255, 0.95)";
-        ctx.strokeStyle = "rgba(18, 52, 86, 0.15)";
+        
+        // Draw backing dark-glass badge
+        ctx.fillStyle = "rgba(10, 15, 30, 0.92)";
+        ctx.strokeStyle = "rgba(255, 255, 255, 0.1)";
         ctx.beginPath();
-        ctx.roundRect(hx - textWidth/2 - 8, hy - 32, textWidth + 16, 16, 4);
+        ctx.roundRect(hx - textWidth/2 - 8, hy - 34, textWidth + 16, 17, 4);
         ctx.fill();
         ctx.stroke();
 
-        ctx.fillStyle = "#123456";
-        ctx.fillText(text, hx, hy - 24);
+        ctx.fillStyle = hub.color;
+        ctx.fillText(text, hx, hy - 25);
       });
 
-      // 7. Interactive cursor particle trigger
+      // 7. Ripple trace on hover coordinates
       if (mouseRef.current.isHovering) {
         ctx.beginPath();
-        ctx.arc(mouseRef.current.x, mouseRef.current.y, 30, 0, Math.PI * 2);
-        ctx.strokeStyle = "rgba(40, 167, 69, 0.08)";
+        ctx.arc(mouseRef.current.x, mouseRef.current.y, 25, 0, Math.PI * 2);
+        ctx.strokeStyle = "rgba(249, 115, 22, 0.15)";
         ctx.lineWidth = 1;
         ctx.stroke();
       }
@@ -334,8 +347,8 @@ export default function ThreeCanvas({ scrollPercent }: ThreeCanvasProps) {
 
   return (
     <div className="relative w-full h-full min-h-[400px] flex flex-col justify-between" container-id="canvas-box">
-      {/* 3D Render Host inside layout - targets EXACT focus Selector DOM structure */}
-      <div id="three-dom-viewport" ref={containerRef} className="w-full h-full flex-grow cursor-crosshair rounded-2xl bg-white border border-slate-150 relative shadow-md overflow-hidden">
+      {/* Dark Render Host matching viewport details exactly */}
+      <div id="three-dom-viewport" ref={containerRef} className="w-full h-full flex-grow cursor-crosshair rounded-2xl bg-[#090d16] border border-slate-800/80 relative shadow-2xl overflow-hidden">
         <canvas 
           ref={canvasRef} 
           className="block w-full h-full transition duration-300"
@@ -343,32 +356,32 @@ export default function ThreeCanvas({ scrollPercent }: ThreeCanvasProps) {
         />
       </div>
 
-      {/* Elegant label indicating the active business optimization structure */}
-      <div className="absolute top-4 left-4 pointer-events-none bg-white/95 border border-slate-250/80 rounded-lg px-3 py-1.5 backdrop-blur-md shadow-md z-10 transition-all duration-300">
+      {/* Flag card showing live model status */}
+      <div className="absolute top-4 left-4 pointer-events-none bg-slate-950/90 border border-slate-800 rounded-lg px-3 py-1.5 backdrop-blur-md shadow-lg z-10">
         <div className="flex items-center gap-2">
-          <div className="w-2.5 h-2.5 rounded-full bg-[#28A745] animate-pulse" />
-          <span className="text-[10px] font-mono uppercase tracking-widest text-[#123456] font-bold">
-            Value Flow Pipeline
+          <div className="w-2.5 h-2.5 rounded-full bg-[#f97316] animate-pulse" />
+          <span className="text-[10px] font-mono uppercase tracking-widest text-slate-300 font-bold">
+            ShareLoop Platform
           </span>
         </div>
       </div>
 
-      {/* Interactive dynamic readout footer driven by hover & scroll alignment */}
+      {/* Floating dynamic diagnostic panel displaying information directly from prompt image details */}
       <div className="absolute bottom-4 left-4 right-4 pointer-events-none transition-all duration-300 z-10">
-        <div className="bg-white/95 border border-slate-200 rounded-xl p-3 shadow-lg backdrop-blur-sm text-center">
-          <p className="text-xs font-mono text-slate-800 font-bold min-h-[16px] leading-tight transition-all duration-150">
-            {hoveredNodeInfo || "Hover the hubs or scroll the page to track optimized transaction delivery"}
+        <div className="bg-slate-950/90 border border-slate-800/80 rounded-xl p-3 shadow-2xl backdrop-blur-md text-center">
+          <p className="text-xs font-mono text-slate-100 font-bold min-h-[16px] leading-relaxed transition-all duration-150">
+            {hoveredNodeInfo || "Hover system nodes or scroll the page to check how we flip the supply chain"}
           </p>
-          <div className="mt-2 w-full bg-slate-100 h-[3px] rounded-full overflow-hidden">
+          <div className="mt-2 w-full bg-slate-900 h-[4px] rounded-full overflow-hidden">
             <div 
-              className="bg-[#28A745] h-full transition-all duration-200" 
+              className="bg-gradient-to-r from-orange-500 to-green-500 h-full transition-all duration-300" 
               style={{ width: `${Math.round(scrollPercent * 100)}%` }}
             />
           </div>
-          <div className="flex justify-between items-center mt-1.5 text-[9px] text-[#123456] font-mono font-bold">
-            <span>SCATTERED TRADING</span>
-            <span>{Math.round(scrollPercent * 100)}% DIRECT VALUE ALIGNED</span>
-            <span>ZERO OVERHEAD</span>
+          <div className="flex justify-between items-center mt-1.5 text-[9px] text-slate-400 font-mono font-bold">
+            <span className="text-orange-500">5.6 REDUNDANT STAGES</span>
+            <span className="text-slate-200">{Math.round(scrollPercent * 100)}% FLIPPED VALUE</span>
+            <span className="text-green-500">MAX CREATOR COMP</span>
           </div>
         </div>
       </div>

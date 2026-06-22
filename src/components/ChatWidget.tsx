@@ -14,7 +14,7 @@ export default function ChatWidget() {
   const [messages, setMessages] = useState<Message[]>([
     {
       role: "model",
-      text: "Hello! I'm the MCT Aligned LLC virtual companion. Ask me any questions about our services like business optimization and value chain alignment, and how we cut out unproductive middlemen costs!",
+      text: "Hello! I'm the ShareLoop virtual companion by MCT Aligned LLC! Ask me any questions about our shared-production batch system, how we fund work directly on credits, and how we squeeze out the 5.6 redundant supply chain margins!",
       time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
     },
   ]);
@@ -73,7 +73,7 @@ export default function ChatWidget() {
           ...prev,
           {
             role: "model",
-            text: `[Error] ${data.error || "Failed to process chat call. Make sure process is up."}`,
+            text: `[Error] ${data.error || "Failed to process chat call. Make sure the backend dev server is fully active."}`,
             time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
           },
         ]);
@@ -102,14 +102,14 @@ export default function ChatWidget() {
       {isOpen && (
         <div
           id="chat-window"
-          className="w-[350px] sm:w-[400px] h-[500px] max-h-[80vh] bg-white border border-slate-200 rounded-2xl shadow-2xl flex flex-col overflow-hidden mb-4 transition-all duration-300 transform scale-100 origin-bottom-right"
+          className="w-[350px] sm:w-[400px] h-[500px] max-h-[80vh] bg-[#0c1221] border border-slate-800 rounded-2xl shadow-2xl flex flex-col overflow-hidden mb-4 transition-all duration-300 transform scale-100 origin-bottom-right"
         >
           {/* Header */}
-          <div className="bg-slate-50 p-4 border-b border-slate-150 flex justify-between items-center">
+          <div className="bg-slate-950 p-4 border-b border-slate-800 flex justify-between items-center">
             <div className="flex items-center gap-3">
               <div className="relative">
-                <span className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-[#28A745] border border-white rounded-full z-10" />
-                <div className="w-9 h-9 rounded-lg overflow-hidden border border-slate-150 shadow-sm flex items-center justify-center bg-white">
+                <span className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-[#22c55e] border border-slate-950 rounded-full z-10 animate-pulse" />
+                <div className="w-9 h-9 rounded-lg overflow-hidden border border-slate-800 shadow-sm flex items-center justify-center bg-slate-900">
                   <img 
                     src="/src/assets/images/mct_favicon_1782154704547.jpg" 
                     alt="MCT Aligned Icon" 
@@ -119,17 +119,17 @@ export default function ChatWidget() {
                 </div>
               </div>
               <div>
-                <h4 className="text-sm font-bold text-slate-850">
-                  Value Alignment AI
+                <h4 className="text-sm font-bold text-slate-100 text-glow-orange">
+                  ShareLoop Advisor
                 </h4>
-                <p className="text-[10px] text-[#28A745] font-mono tracking-wider font-semibold">
-                  MCT ALIGNED COMPANION
+                <p className="text-[10px] text-[#22c55e] font-mono tracking-wider font-semibold uppercase">
+                  MCT Aligned Project
                 </p>
               </div>
             </div>
             <button
               onClick={() => setIsOpen(false)}
-              className="text-slate-400 hover:text-slate-700 transition-colors p-1 rounded-md hover:bg-slate-100"
+              className="text-slate-400 hover:text-slate-200 transition-colors p-1 rounded-md hover:bg-slate-900"
               aria-label="Close Chat"
             >
               <X className="w-5 h-5" />
@@ -137,32 +137,32 @@ export default function ChatWidget() {
           </div>
 
           {/* Interactive FAQs - Quick Access prompts */}
-          <div className="px-3 py-2 bg-slate-50 border-b border-slate-150 flex items-center gap-1.5 overflow-x-auto whitespace-nowrap scrollbar-none">
-            <span className="text-[10px] font-bold text-slate-500 flex items-center gap-1 uppercase shrink-0">
-              <HelpCircle className="w-3 h-3" /> Quick Ask:
+          <div className="px-3 py-2 bg-slate-950 border-b border-slate-800 flex items-center gap-1.5 overflow-x-auto whitespace-nowrap scrollbar-none">
+            <span className="text-[10px] font-bold text-slate-400 flex items-center gap-1 uppercase shrink-0">
+              <HelpCircle className="w-3 h-3 text-orange-500" /> Ask:
             </span>
             <button
-              onClick={() => handleFAQSelection("How do you bypass middlemen?")}
-              className="text-[10px] bg-white hover:bg-slate-100 text-slate-650 py-1 px-2.5 rounded-full border border-slate-200 shrink-0 transition cursor-pointer"
+              onClick={() => handleFAQSelection("Why is the traditional chain expensive?")}
+              className="text-[10px] bg-slate-900 hover:bg-slate-800 text-slate-200 py-1 px-2.5 rounded-full border border-slate-800 shrink-0 transition cursor-pointer"
             >
-              Bypass middlemen
+              Why are chains expensive?
             </button>
             <button
-              onClick={() => handleFAQSelection("What is Value Chain Analysis?")}
-              className="text-[10px] bg-white hover:bg-slate-100 text-slate-650 py-1 px-2.5 rounded-full border border-slate-200 shrink-0 transition cursor-pointer"
+              onClick={() => handleFAQSelection("Explain the 4-step shared-production model.")}
+              className="text-[10px] bg-slate-900 hover:bg-slate-800 text-slate-200 py-1 px-2.5 rounded-full border border-slate-800 shrink-0 transition cursor-pointer"
             >
-              Value Chain tool
+              The 4 Steps
             </button>
             <button
               onClick={() => handleFAQSelection("Give me contact phone number.")}
-              className="text-[10px] bg-white hover:bg-slate-100 text-slate-650 py-1 px-2.5 rounded-full border border-slate-200 shrink-0 transition cursor-pointer"
+              className="text-[10px] bg-slate-900 hover:bg-slate-800 text-slate-200 py-1 px-2.5 rounded-full border border-slate-800 shrink-0 transition cursor-pointer"
             >
-              Get contact info
+              Support Phone
             </button>
           </div>
 
           {/* Messages */}
-          <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-slate-50/50 scrollbar-thin scrollbar-thumb-slate-200" id="chat-messages-container">
+          <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-[#0a0f1b] scrollbar-thin scrollbar-thumb-slate-800" id="chat-messages-container">
             {messages.map((msg, idx) => (
               <div
                 key={idx}
@@ -171,13 +171,13 @@ export default function ChatWidget() {
                 <div
                   className={`max-w-[85%] rounded-xl px-3.5 py-2.5 text-sm ${
                     msg.role === "user"
-                      ? "bg-[#123456] text-white rounded-tr-none shadow-sm"
-                      : "bg-white border border-slate-150 text-slate-750 rounded-tl-none font-sans shadow-sm"
+                      ? "bg-gradient-to-r from-orange-600 to-orange-500 text-white rounded-tr-none shadow-md"
+                      : "bg-[#141b2e] border border-slate-800 text-slate-100 rounded-tl-none font-sans shadow-md"
                   }`}
                 >
                   <p className="whitespace-pre-wrap leading-relaxed">{msg.text}</p>
                 </div>
-                <span className="text-[10px] text-slate-400 mt-1 select-none">
+                <span className="text-[10px] text-slate-500 mt-1 select-none font-mono">
                   {msg.time}
                 </span>
               </div>
@@ -185,12 +185,12 @@ export default function ChatWidget() {
 
             {isTyping && (
               <div className="flex flex-col items-start gap-1">
-                <div className="bg-white border border-slate-150 rounded-xl rounded-tl-none px-4 py-3 flex items-center space-x-1.5 shadow-sm">
-                  <span className="w-1.5 h-1.5 bg-[#28A745] rounded-full animate-bounce" style={{ animationDelay: "0ms" }} />
-                  <span className="w-1.5 h-1.5 bg-[#28A745] rounded-full animate-bounce" style={{ animationDelay: "150ms" }} />
-                  <span className="w-1.5 h-1.5 bg-[#28A745] rounded-full animate-bounce" style={{ animationDelay: "300ms" }} />
+                <div className="bg-[#141b2e] border border-slate-800 rounded-xl rounded-tl-none px-4 py-3 flex items-center space-x-1.5 shadow-md">
+                  <span className="w-1.5 h-1.5 bg-[#22c55e] rounded-full animate-bounce" style={{ animationDelay: "0ms" }} />
+                  <span className="w-1.5 h-1.5 bg-[#22c55e] rounded-full animate-bounce" style={{ animationDelay: "150ms" }} />
+                  <span className="w-1.5 h-1.5 bg-[#22c55e] rounded-full animate-bounce" style={{ animationDelay: "300ms" }} />
                 </div>
-                <span className="text-[10px] font-mono text-[#28A745] uppercase font-bold">typing alignment...</span>
+                <span className="text-[10px] font-mono text-[#22c55e] uppercase font-bold">Simulating alignment...</span>
               </div>
             )}
             <div ref={messagesEndRef} />
@@ -199,22 +199,22 @@ export default function ChatWidget() {
           {/* Form */}
           <form
             onSubmit={handleSend}
-            className="p-3 bg-white border-t border-slate-150 flex gap-2 items-center"
+            className="p-3 bg-slate-950 border-t border-slate-800 flex gap-2 items-center"
           >
             <input
               type="text"
               value={inputVal}
               onChange={(e) => setInputVal(e.target.value)}
-              placeholder="Ask about aligning value pools..."
-              className="flex-1 bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2 text-sm text-slate-800 placeholder-slate-400 focus:outline-none focus:border-[#123456] focus:ring-1 focus:ring-[#123456] transition duration-250"
+              placeholder="Ask about saving on software, crops, or expert help..."
+              className="flex-1 bg-slate-900 border border-slate-800 rounded-xl px-3.5 py-2 text-sm text-slate-200 placeholder-slate-500 focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 transition duration-250"
             />
             <button
               type="submit"
               disabled={!inputVal.trim()}
-              className="p-2.5 bg-[#123456] disabled:bg-slate-100 disabled:text-slate-350 disabled:cursor-not-allowed hover:bg-opacity-95 text-white rounded-xl transition shadow shrink-0 focus:outline-none cursor-pointer"
+              className="p-2.5 bg-gradient-to-r from-orange-600 to-orange-500 disabled:from-slate-800 disabled:to-slate-900 disabled:text-slate-600 disabled:cursor-not-allowed hover:from-orange-500 hover:to-orange-400 text-white rounded-xl transition shadow shrink-0 focus:outline-none cursor-pointer"
               aria-label="Send Message"
             >
-              <Send className="w-4.5 h-4.5" />
+              <Send className="w-4 h-4" />
             </button>
           </form>
         </div>
@@ -225,16 +225,16 @@ export default function ChatWidget() {
         id="chat-trigger-bubble"
         ref={chatBubbleRef}
         onClick={() => setIsOpen(!isOpen)}
-        className="relative group p-4 bg-[#123456] hover:bg-opacity-90 text-white rounded-full shadow-2xl transition-all duration-300 transform hover:scale-105 active:scale-95 flex items-center justify-center focus:outline-none focus:ring-4 focus:ring-[#123456]/30"
+        className="relative group p-4 bg-gradient-to-tr from-orange-600 to-orange-500 hover:from-orange-500 hover:to-orange-400 text-white rounded-full shadow-2xl transition-all duration-300 transform hover:scale-105 active:scale-95 flex items-center justify-center focus:outline-none focus:ring-4 focus:ring-orange-500/30"
         aria-label="Open AI Chat Support"
       >
-        <span className="absolute -top-1 -right-1 w-3.5 h-3.5 bg-[#28A745] animate-ping rounded-full" />
-        <span className="absolute -top-1 -right-1 w-3.5 h-3.5 bg-[#28A745] border-2 border-white rounded-full" />
+        <span className="absolute -top-1 -right-1 w-3.5 h-3.5 bg-[#22c55e] animate-ping rounded-full" />
+        <span className="absolute -top-1 -right-1 w-3.5 h-3.5 bg-[#22c55e] border-2 border-[#050811] rounded-full" />
         {isOpen ? <X className="w-6 h-6" /> : <MessageSquare className="w-6 h-6" />}
         
         {/* Hover Label */}
-        <span className="absolute right-16 bg-white border border-slate-200 text-[#123456] text-xs px-2.5 py-1.5 rounded-lg opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap font-sans font-bold tracking-tight shadow-md">
-          ALIGNMENT ADVISOR ON SITE
+        <span className="absolute right-16 bg-slate-900 border border-slate-800 text-slate-100 text-xs px-2.5 py-1.5 rounded-lg opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap font-sans font-bold tracking-tight shadow-lg">
+          SHARELOOP ADVISOR ON-LINE
         </span>
       </button>
     </div>

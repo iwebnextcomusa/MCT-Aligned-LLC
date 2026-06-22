@@ -45,7 +45,7 @@ export default function App() {
   const [expandedFAQIndex, setExpandedFAQIndex] = useState<number | null>(0);
 
   // Expanded Service Card details
-  const [selectedServiceId, setSelectedServiceId] = useState<string>("process-optimization");
+  const [selectedServiceId, setSelectedServiceId] = useState<string>("software-automations");
 
   // Legal Modals states
   const [privacyOpen, setPrivacyOpen] = useState(false);
@@ -67,13 +67,16 @@ export default function App() {
 
   // Track page scroll progress for interactive 3D transformations
   useEffect(() => {
+    // Dynamic page title lock
+    document.title = "iWebNext";
+
     const handleScroll = () => {
       const scrollTop = window.scrollY;
       const docHeight = document.documentElement.scrollHeight - window.innerHeight;
       const progress = docHeight > 0 ? scrollTop / docHeight : 0;
       setScrollPercent(progress);
 
-      // Simple active section detection for sticky header highlights
+      // Active section detection for navigation
       const sections = ["home", "about", "services", "contact"];
       for (const sectionId of sections) {
         const el = document.getElementById(sectionId);
@@ -151,7 +154,7 @@ export default function App() {
       const data = await res.json();
       if (res.ok) {
         setFormStatus("success");
-        setFormSuccessMsg(data.message || "Thank you! Your information has been secured successfully.");
+        setFormSuccessMsg(data.message || "Your inquiry has been successfully transmitted. We will contact you shortly.");
         // Clear input form
         setFormName("");
         setFormEmail("");
@@ -159,16 +162,16 @@ export default function App() {
         setFormMessage("");
       } else {
         setFormStatus("error");
-        setFormErrorMsg(data.error || "Failed to submit lead. Please check network connection.");
+        setFormErrorMsg(data.error || "Failed to submit request. Please try again.");
       }
     } catch (err) {
       console.error("Lead submission error:", err);
       setFormStatus("error");
-      setFormErrorMsg("An unexpected failure occurred while submitting. Please call us directly.");
+      setFormErrorMsg("An unexpected failure occurred while submitting. Please call us directly at 580-826-7475.");
     }
   };
 
-  // Dynamic Icon resolver helper
+  // Dynamic Icon resolver helper matching ShareLoop values
   const getIcon = (name: string, className = "w-5 h-5") => {
     switch (name) {
       case "Sliders": return <Sliders className={className} />;
@@ -186,10 +189,10 @@ export default function App() {
   const selectedService = SERVICES.find((s) => s.id === selectedServiceId) || SERVICES[0];
 
   return (
-    <div className="min-h-screen text-slate-800 bg-slate-50 font-sans selection:bg-[#28A745]/15 selection:text-[#123456] relative overflow-x-hidden">
+    <div className="min-h-screen text-slate-100 bg-[#050811] font-sans selection:bg-orange-500/20 selection:text-orange-400 relative overflow-x-hidden">
       
-      {/* 1. Header Sticky Navigation */}
-      <header className="sticky top-0 z-40 w-full border-b border-slate-100 bg-white/95 backdrop-blur-md transition-all duration-300 shadow-sm">
+      {/* 1. Header Navigation in Dark Theme */}
+      <header className="sticky top-0 z-40 w-full border-b border-slate-900 bg-[#050811]/90 backdrop-blur-md shadow-2xl transition-all duration-300">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
           
           {/* Logo Branding */}
@@ -197,7 +200,7 @@ export default function App() {
             onClick={() => handleScrollToSection("home")}
             className="flex items-center gap-3 cursor-pointer group"
           >
-            <div className="w-10 h-10 rounded-lg overflow-hidden flex items-center justify-center shadow-sm transition-all duration-300 border border-slate-100 bg-white">
+            <div className="w-10 h-10 rounded-lg overflow-hidden flex items-center justify-center shadow-lg transition-all duration-300 border border-slate-800 bg-slate-900">
               <img 
                 src="/src/assets/images/mct_favicon_1782154704547.jpg" 
                 alt="MCT Aligned Emblem" 
@@ -206,40 +209,40 @@ export default function App() {
               />
             </div>
             <div>
-              <span className="text-base font-bold text-[#123456] tracking-tight block leading-none">
+              <span className="text-base font-bold text-slate-100 tracking-tight block leading-none text-glow-green">
                 MCT ALIGNED
               </span>
-              <span className="text-[9px] font-mono tracking-widest text-[#28A745] mt-1.5 block uppercase leading-none font-bold">
-                Value Realignment
+              <span className="text-[10px] font-mono tracking-widest text-[#f97316] mt-1 block uppercase leading-none font-bold">
+                ShareLoop Project
               </span>
             </div>
           </div>
 
           {/* Desktop Nav Items */}
-          <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-slate-600">
+          <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-slate-300">
             <button
               onClick={() => handleScrollToSection("home")}
-              className={`pb-1 transition-all hover:text-[#123456] cursor-pointer ${
-                activeSection === "home" ? "text-[#123456] font-bold border-b-2 border-[#123456]" : ""
+              className={`pb-1 transition-all hover:text-orange-500 cursor-pointer ${
+                activeSection === "home" ? "text-orange-500 font-bold border-b-2 border-orange-500" : ""
               }`}
             >
               Home
             </button>
             <button
               onClick={() => handleScrollToSection("about")}
-              className={`pb-1 transition-all hover:text-[#123456] cursor-pointer ${
-                activeSection === "about" ? "text-[#123456] font-bold border-b-2 border-[#123456]" : ""
+              className={`pb-1 transition-all hover:text-orange-500 cursor-pointer ${
+                activeSection === "about" ? "text-orange-500 font-bold border-b-2 border-orange-500" : ""
               }`}
             >
-              About
+              How It Works
             </button>
             <button
               onClick={() => handleScrollToSection("services")}
-              className={`pb-1 transition-all hover:text-[#123456] cursor-pointer ${
-                activeSection === "services" ? "text-[#123456] font-bold border-b-2 border-[#123456]" : ""
+              className={`pb-1 transition-all hover:text-orange-500 cursor-pointer ${
+                activeSection === "services" ? "text-orange-500 font-bold border-b-2 border-orange-500" : ""
               }`}
             >
-              Services
+              How Much Is Actual Work?
             </button>
             <a
               onClick={(e) => {
@@ -247,34 +250,34 @@ export default function App() {
                 handleScrollToSection("contact");
               }}
               href="#contact"
-              className={`pb-1 transition-all hover:text-[#123456] cursor-pointer ${
-                activeSection === "contact" ? "text-[#123456] font-bold border-b-2 border-[#123456]" : ""
+              className={`pb-1 transition-all hover:text-orange-500 cursor-pointer ${
+                activeSection === "contact" ? "text-orange-500 font-bold border-b-2 border-orange-500" : ""
               }`}
             >
               Contact
             </a>
           </nav>
 
-          {/* Connect Action Trigger */}
+          {/* Action Trigger */}
           <div className="hidden md:flex items-center gap-6">
             <a
               href="mailto:brian@mctaligned.com"
-              className="text-xs font-mono text-slate-500 hover:text-[#123456] transition-colors"
+              className="text-xs font-mono text-slate-400 hover:text-white transition-colors"
             >
               brian@mctaligned.com
             </a>
             <button
               onClick={() => handleScrollToSection("contact")}
-              className="px-5 py-2 bg-[#123456] text-white rounded-md font-semibold text-xs tracking-wider uppercase hover:bg-opacity-90 shadow-sm transition-all cursor-pointer"
+              className="px-5 py-2 bg-gradient-to-r from-orange-600 to-orange-500 hover:from-orange-500 hover:to-orange-400 text-white rounded-lg font-bold text-xs tracking-wider uppercase shadow-md transition-all cursor-pointer"
             >
-              Contact Us
+              Join Next Batch
             </button>
           </div>
 
-          {/* Mobile hamburger toggle button */}
+          {/* Mobile menu toggle */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden p-2 text-slate-500 hover:text-slate-900 rounded-lg hover:bg-slate-100 transition-colors"
+            className="md:hidden p-2 text-slate-400 hover:text-slate-100 rounded-lg hover:bg-slate-900 transition-colors"
             aria-label="Toggle Mobile Menu"
           >
             {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -283,118 +286,153 @@ export default function App() {
 
         {/* Mobile slide-down navigation drawer */}
         {mobileMenuOpen && (
-          <div className="md:hidden border-t border-slate-100 bg-white px-4 py-6 space-y-4 shadow-lg">
+          <div className="md:hidden border-t border-slate-900 bg-[#050811] px-4 py-6 space-y-4 shadow-2xl">
             <div className="flex flex-col gap-3 font-medium">
               <button
                 onClick={() => handleScrollToSection("home")}
-                className="text-left py-2 px-3 text-sm text-slate-700 hover:bg-slate-50 rounded-lg cursor-pointer"
+                className="text-left py-2 px-3 text-sm text-slate-350 hover:bg-slate-900 rounded-lg cursor-pointer"
               >
                 Home
               </button>
               <button
                 onClick={() => handleScrollToSection("about")}
-                className="text-left py-2 px-3 text-sm text-slate-700 hover:bg-slate-50 rounded-lg cursor-pointer"
+                className="text-left py-2 px-3 text-sm text-slate-350 hover:bg-slate-900 rounded-lg cursor-pointer"
               >
-                About Us
+                How It Works
               </button>
               <button
                 onClick={() => handleScrollToSection("services")}
-                className="text-left py-2 px-3 text-sm text-slate-700 hover:bg-slate-50 rounded-lg cursor-pointer"
+                className="text-left py-2 px-3 text-sm text-slate-350 hover:bg-slate-900 rounded-lg cursor-pointer"
               >
-                Our Services
+                How Much Is Actual Work?
               </button>
               <button
                 onClick={() => handleScrollToSection("contact")}
-                className="text-left py-2 px-3 text-sm text-slate-700 hover:bg-slate-50 rounded-lg cursor-pointer"
+                className="text-left py-2 px-3 text-sm text-slate-350 hover:bg-slate-900 rounded-lg cursor-pointer"
               >
                 Contact
               </button>
             </div>
             
-            <div className="pt-4 border-t border-slate-100 space-y-3">
-              <div className="text-xs text-slate-500 font-mono flex flex-col gap-1 px-3">
+            <div className="pt-4 border-t border-slate-905 space-y-3">
+              <div className="text-xs text-slate-400 font-mono flex flex-col gap-1 px-3">
                 <span>Phone: 580-826-7475</span>
                 <span>Email: brian@mctaligned.com</span>
               </div>
               <button
                 onClick={() => handleScrollToSection("contact")}
-                className="w-full py-2.5 bg-[#123456] text-white rounded-lg text-xs font-semibold tracking-wide shadow cursor-pointer"
+                className="w-full py-2.5 bg-gradient-to-r from-orange-600 to-orange-500 text-white rounded-lg text-xs font-bold tracking-wide shadow cursor-pointer text-center"
               >
-                Get Started
+                Join Next Batch
               </button>
             </div>
           </div>
         )}
       </header>
 
-      {/* 2. Hero Section */}
-      <section id="home" className="relative pt-8 pb-20 md:py-24 lg:py-32 items-center flex bg-slate-50 border-b border-slate-100">
-        <div className="absolute inset-0 bg-gradient-to-tr from-[#123456]/5 via-transparent to-[#28A745]/5 pointer-events-none" />
+      {/* 2. Hero Section - Styled exactly based on ShareLoop infographics */}
+      <section id="home" className="relative pt-12 pb-24 md:py-32 lg:py-40 items-center flex bg-[#050811] border-b border-slate-950">
+        <div className="absolute inset-0 bg-gradient-to-tr from-orange-500/5 via-transparent to-green-500/5 pointer-events-none" />
         
-        {/* Subtle decorative grid lines for modern architecture vibe */}
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#cbd5e1_1px,transparent_1px),linear-gradient(to_bottom,#cbd5e1_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_40%,#000_70%,transparent_100%)] opacity-[0.12] pointer-events-none" />
+        {/* Subtle decorative grid lines for modern blueprint vibe */}
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#0f172a_1px,transparent_1px),linear-gradient(to_bottom,#0f172a_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_40%,#000_80%,transparent_100%)] opacity-30 pointer-events-none" />
         
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 content-area relative z-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 content-area relative z-10 w-full">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             
-            {/* Copystyle details */}
+            {/* Left Info Columns (ShareLoop core tagline values) */}
             <div className="lg:col-span-7 space-y-8 max-w-2xl text-left">
               
               <div className="space-y-4">
-                <span className="text-[#28A745] font-bold tracking-[0.2em] text-xs uppercase font-mono block">Value Realignment</span>
-                <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-800 leading-[1.1] font-sans">
-                  Aligning Value with the <br />
-                  <span className="text-[#123456]">
-                    People Who Create It.
-                  </span>
+                <span className="text-[#22c55e] font-extrabold tracking-[0.25em] text-xs uppercase font-mono block">
+                  A Shared-Production Project by MCT-Aligned LLC
+                </span>
+                
+                <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-[1.1] font-sans">
+                  <span className="text-[#22c55e] text-glow-green">THE WORK ISN'T EXPENSIVE.</span> <br />
+                  <span className="text-[#f97316] text-glow-orange uppercase">THE CHAIN IS.</span>
                 </h1>
-                <p className="text-lg text-slate-600 max-w-lg leading-relaxed font-sans">
-                  Helping workers and buyers benefit from more efficient, transparent business relationships by reducing unnecessary middleman costs. MCT Aligned LLC remodels systems by squeezing out expensive, unnecessary intermediate brokerage layers.
+                
+                <p className="text-lg text-slate-300 max-w-lg leading-relaxed font-sans">
+                  The chain gets paid before the work does. Traditional supply chains layer dozens of intermediary markups. By pooling orders and funding production directly, ShareLoop removes the redundant brokers to return value straight to creators and buyers.
                 </p>
               </div>
 
+              {/* Your Dollar Takes The Long Way Pathway Diagram (Interactive CSS visualizer) */}
+              <div className="p-5 rounded-2xl bg-slate-950/90 border border-slate-900 text-left space-y-4 shadow-xl">
+                <h4 className="text-xs font-mono text-[#f97316] uppercase tracking-wider font-extrabold">
+                  Your Dollar Takes The Long Way:
+                </h4>
+                <div className="grid grid-cols-5 items-center gap-2">
+                  <div className="flex flex-col items-center">
+                    <div className="w-12 h-10 bg-green-900/30 border border-green-500/50 rounded-lg flex flex-col justify-center items-center shadow-lg animate-pulse">
+                      <div className="text-[10px] text-green-400 font-extrabold font-mono">100%</div>
+                      <span className="text-[8px] text-slate-400">YOU</span>
+                    </div>
+                  </div>
+                  <div className="text-center text-slate-600 font-bold">➔</div>
+                  <div className="flex flex-col items-center">
+                    <div className="w-12 h-10 bg-slate-900 border border-slate-800 rounded-lg flex flex-col justify-center items-center opacity-70">
+                      <div className="text-[10px] text-slate-400 font-mono">48%</div>
+                      <span className="text-[8px] text-slate-500">BROKER</span>
+                    </div>
+                  </div>
+                  <div className="text-center text-slate-600 font-bold">➔</div>
+                  <div className="flex flex-col items-center">
+                    <div className="w-12 h-10 bg-orange-950/20 border border-orange-500/50 rounded-lg flex flex-col justify-center items-center shadow">
+                      <div className="text-[10px] text-orange-400 font-mono font-extrabold">12%</div>
+                      <span className="text-[8px] text-slate-300">WORK</span>
+                    </div>
+                  </div>
+                </div>
+                <p className="text-[10px] text-slate-400 leading-normal font-sans">
+                  *Example: In software, only <span className="text-orange-400 font-bold">12¢</span> keeps the code online and pays the builders. The other <span className="text-slate-200 font-bold">88¢</span> is siphoned into corporate marketing and administrative commissions.
+                </p>
+              </div>
+
+              {/* Primary Call to Actions */}
               <div className="flex flex-wrap gap-4 items-center pt-2">
                 <button
                   onClick={() => handleScrollToSection("contact")}
-                  className="px-8 py-4 bg-[#123456] text-white font-bold rounded-lg shadow-md hover:shadow-lg transition-all duration-200 flex items-center gap-2 group cursor-pointer"
+                  className="px-8 py-4 bg-gradient-to-r from-orange-600 to-orange-500 hover:from-orange-500 hover:to-orange-400 text-white font-extrabold rounded-lg shadow-xl flex items-center gap-2 group cursor-pointer transition-all duration-300"
                 >
-                  Get Started
+                  Join Next Batch
                   <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                 </button>
                 <button
-                  onClick={() => handleScrollToSection("about")}
-                  className="px-8 py-4 bg-white border border-slate-200 text-slate-800 font-bold rounded-lg hover:bg-slate-100 hover:text-[#123456] transition-all duration-200 shadow-sm cursor-pointer"
+                  onClick={() => handleScrollToSection("services")}
+                  className="px-8 py-4 bg-slate-900/80 border border-slate-800 text-slate-200 font-bold rounded-lg hover:border-orange-500/30 transition-all duration-200 shadow-xl cursor-pointer"
                 >
-                  Learn More
+                  Inspect Value Studies
                 </button>
               </div>
 
-              {/* Direct corporate indicators to verify trust */}
-              <div className="pt-6 grid grid-cols-3 gap-6 border-t border-slate-200">
+              {/* Direct indicators to verify trust */}
+              <div className="pt-6 grid grid-cols-3 gap-6 border-t border-slate-900">
                 <div>
-                  <span className="block text-2xl font-bold font-mono text-[#28A745]">Zero</span>
-                  <span className="text-[11px] uppercase tracking-wider text-slate-500 font-medium">
-                    Middleman Markups
+                  <span className="block text-2xl font-extrabold font-mono text-[#22c55e]">5.6</span>
+                  <span className="text-[10px] uppercase tracking-wider text-slate-400 font-semibold font-mono block">
+                    Paid Stages Avg.
                   </span>
                 </div>
                 <div>
-                  <span className="block text-2xl font-bold font-mono text-[#123456]">Direct</span>
-                  <span className="text-[11px] uppercase tracking-wider text-slate-500 font-medium">
-                    Client Channels
+                  <span className="block text-2xl font-extrabold font-mono text-[#f97316]">Batch</span>
+                  <span className="text-[10px] uppercase tracking-wider text-slate-400 font-semibold font-mono block">
+                    Shared Production
                   </span>
                 </div>
                 <div>
-                  <span className="block text-2xl font-bold font-mono text-slate-800">580</span>
-                  <span className="text-[11px] uppercase tracking-wider text-slate-500 font-mono font-medium">
+                  <span className="block text-2xl font-extrabold font-mono text-white">580</span>
+                  <span className="text-[10px] uppercase tracking-wider text-slate-400 font-semibold font-mono block">
                     826-7475 PhoneNo
                   </span>
                 </div>
               </div>
             </div>
 
-            {/* Interactive 3D WebGL Section */}
+            {/* Interactive 3D Pipeline canvas (aligned to focus CSS definitions) */}
             <div className="lg:col-span-5 h-[480px] w-full flex flex-col justify-center relative">
-              <div className="absolute inset-0 bg-blue-500/5 filter blur-3xl rounded-full" />
+              <div className="absolute inset-0 bg-orange-500/5 filter blur-3xl rounded-full" />
               <div className="w-full h-full relative" id="interactive-3d-node-viewer">
                 <ThreeCanvas scrollPercent={scrollPercent} />
               </div>
@@ -404,246 +442,162 @@ export default function App() {
         </div>
       </section>
 
-      {/* 3. Mission / Philosophy Section */}
-      <section className="py-20 bg-white relative border-t border-slate-100 overflow-hidden">
+      {/* Verified CMA Supply Chain Length banner block */}
+      <section className="py-12 bg-slate-950 border-b border-slate-900 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          
-          <div className="max-w-3xl mx-auto text-center space-y-4 mb-16">
-            <h2 className="text-xs uppercase tracking-widest text-[#28A745] font-mono font-bold">
-              Corporate Philosophy
-            </h2>
-            <h3 className="text-3xl sm:text-4xl font-extrabold text-[#123456] tracking-tight">
-              A Direct Path to Equitable Commerce
-            </h3>
-            <p className="text-slate-600 text-base leading-relaxed">
-              We stand against structural bloat. By redesigning transactions and reducing non-contributing broker layers, we bring robust economics back into alignment.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            
-            <div className="glass-card rounded-2xl p-6 flex flex-col space-y-4">
-              <div className="w-10 h-10 rounded-lg bg-[#28A745]/10 border border-[#28A745]/20 text-[#28A745] flex items-center justify-center">
-                <ShieldCheck className="w-5 h-5" />
+          <div className="border border-green-500/30 rounded-2xl p-6 sm:p-8 bg-gradient-to-r from-[#070e17] to-slate-950 flex flex-col md:flex-row items-center gap-6 justify-between shadow-2xl">
+            <div className="flex items-center gap-4 text-left">
+              <div className="w-14 h-14 rounded-xl bg-green-950/40 border border-[#22c55e]/30 flex items-center justify-center shrink-0">
+                <TrendingDown className="w-7 h-7 text-[#22c55e]" />
               </div>
-              <h4 className="text-lg font-bold text-slate-800">Fair Value Distribution</h4>
-              <p className="text-slate-600 text-xs sm:text-sm leading-relaxed">
-                Ensuring that capital is awarded to those doing the real lifting, while giving buyers competitive pricing free of broker dilution.
-              </p>
-            </div>
-
-            <div className="glass-card rounded-2xl p-6 flex flex-col space-y-4">
-              <div className="w-10 h-10 rounded-lg bg-[#123456]/10 border border-[#123456]/20 text-[#123456] flex items-center justify-center">
-                <TrendingDown className="w-5 h-5" />
+              <div className="space-y-1">
+                <h3 className="text-lg sm:text-xl font-bold font-mono text-white">
+                  AVG. SUPPLY-CHAIN LENGTH: <span className="text-[#22c55e] text-glow-green font-extrabold">5.6 PAID STAGES</span>
+                </h3>
+                <p className="text-xs sm:text-sm text-slate-300 leading-normal max-w-2xl font-sans">
+                  A paid stage is another middle business sandwiched between your dollar and the actual work. Each superfluous company injects its own profit margin. <span className="text-orange-400 font-medium font-mono">Not five tasks. Five margins.</span>
+                </p>
               </div>
-              <h4 className="text-lg font-bold text-slate-800">Reduced Inefficiencies</h4>
-              <p className="text-slate-600 text-xs sm:text-sm leading-relaxed">
-                By targeting and dismantling unnecessary handoffs and redundant checks, workflows are streamlined down to core capabilities.
-              </p>
             </div>
-
-            <div className="glass-card rounded-2xl p-6 flex flex-col space-y-4">
-              <div className="w-10 h-10 rounded-lg bg-[#123456]/10 border border-[#123456]/20 text-[#123456] flex items-center justify-center">
-                <Eye className="w-5 h-5" />
-              </div>
-              <h4 className="text-lg font-bold text-slate-800">Transparency and Trust</h4>
-              <p className="text-slate-600 text-xs sm:text-sm leading-relaxed">
-                We believe trust is forged through openness. Our clients and teams receive transparent financial views to safeguard transactions.
-              </p>
+            <div className="text-right shrink-0">
+              <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-slate-500 block">Report Citation</span>
+              <span className="text-xs font-semibold text-slate-400 font-mono">CMA Supply-Chain Report</span>
             </div>
-
-            <div className="glass-card rounded-2xl p-6 flex flex-col space-y-4">
-              <div className="w-10 h-10 rounded-lg bg-teal-600/10 border border-teal-600/20 text-teal-700 flex items-center justify-center">
-                <Users className="w-5 h-5" />
-              </div>
-              <h4 className="text-lg font-bold text-slate-800">Sustainable Business Growth</h4>
-              <p className="text-slate-600 text-xs sm:text-sm leading-relaxed">
-                Stable pricing structures protect trade ecosystems from chaotic shifts, securing long-term wealth retention for scaling.
-              </p>
-            </div>
-
           </div>
         </div>
       </section>
 
-      {/* 4. Benefits Section */}
-      <section className="py-20 bg-slate-50 relative border-y border-slate-100">
+      {/* 3. "HOW MUCH IS ACTUAL WORK?" Section - Beautiful dark bento grid displaying real image stats */}
+      <section id="services" className="py-24 bg-[#050811] relative border-b border-slate-950 overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
-          <div className="max-w-3xl mx-auto text-center space-y-4 mb-16">
-            <h2 className="text-xs uppercase tracking-widest text-[#28A745] font-mono font-bold">
-              Mutual Gains
+          <div className="max-w-3xl mx-auto text-center space-y-4 mb-20">
+            <span className="text-xs uppercase tracking-widest text-[#22c55e] font-mono font-extrabold">
+              Value Disparities mapped by US agencies
+            </span>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#f97316] tracking-tight">
+              HOW MUCH IS ACTUAL WORK?
             </h2>
-            <h3 className="text-3xl sm:text-4xl font-extrabold text-[#123456] tracking-tight">
-              Engineered Benefits for Everyone Involved
-            </h3>
-            <p className="text-slate-600 text-base">
-              The math is simple: removing the middleman keeps value pools centered. This distributes real benefits across buyers and workers.
+            <p className="text-slate-350 text-base leading-relaxed">
+              We look past the retail veneer inside core sectors. When you inspect the raw costs, you discover how much capital is pocketed by the chain before reaching workers.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
+            {SERVICES.map((s) => (
+              <div 
+                key={s.id} 
+                onClick={() => setSelectedServiceId(s.id)}
+                className={`glass-card rounded-2xl p-6 sm:p-8 flex flex-col justify-between space-y-6 cursor-pointer border ${
+                  selectedServiceId === s.id 
+                    ? "border-orange-500/50 bg-slate-900/50 text-white shadow-2xl scale-[1.01]" 
+                    : "border-slate-900 bg-slate-950/40 hover:border-slate-800"
+                } transition-all duration-300`}
+              >
+                <div>
+                  <div className="flex justify-between items-start mb-4">
+                    <span className="text-[10px] font-mono uppercase tracking-widest text-[#22c55e] font-bold">
+                      {s.markupStat}
+                    </span>
+                    <div className="w-9 h-9 rounded-lg bg-slate-900 border border-slate-800 flex items-center justify-center text-orange-500">
+                      {getIcon(s.iconName, "w-4.5 h-4.5")}
+                    </div>
+                  </div>
+                  
+                  <h3 className="text-xl font-bold text-white mb-2 group-hover:text-orange-400 transition-colors">
+                    {s.title}
+                  </h3>
+                  
+                  <p className="text-slate-350 text-xs sm:text-sm leading-relaxed mb-6 font-sans">
+                    {s.shortDesc}
+                  </p>
+
+                  <div className="p-4 bg-slate-950 rounded-xl border border-slate-900 flex items-center justify-between">
+                    <div>
+                      <span className="block text-[8px] font-mono text-slate-500 uppercase">Actual Work Compensation</span>
+                      <span className="text-sm font-extrabold font-mono text-orange-500">{s.highlightStat}</span>
+                    </div>
+                    <span className="text-[9px] font-mono bg-green-500/10 border border-green-500/20 text-green-400 px-2 py-0.5 rounded font-extrabold">
+                      Direct Potential
+                    </span>
+                  </div>
+                </div>
+
+                <div className="border-t border-slate-900/80 pt-4 flex items-center justify-between text-xs font-mono">
+                  <span className="text-slate-450">Inspect Study Details</span>
+                  <ArrowUpRight className={`w-4 h-4 ${selectedServiceId === s.id ? "text-orange-500 translate-x-0.5 -translate-y-0.5" : "text-slate-500"} transition-all`} />
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Detailed Display of active selected study details */}
+          <div className="mt-12 bg-slate-950 border border-slate-900 rounded-3xl p-6 sm:p-10 space-y-8 shadow-2xl relative text-left">
+            <div className="absolute top-0 right-12 w-24 h-0.5 bg-gradient-to-r from-transparent via-orange-400 to-transparent" />
             
-            {/* Card 1: Better Value for Buyers */}
-            <div className="glass-panel bg-white border border-slate-150 rounded-2xl p-8 hover:border-[#123456]/25 transition-all duration-300 flex flex-col justify-between shadow-sm">
-              <div>
-                <span className="text-xs font-mono text-[#28A745] tracking-widest uppercase block mb-3 font-bold">
-                  01. FOR PURCHASERS
+            <div className="flex flex-wrap items-center justify-between gap-4 border-b border-slate-900 pb-6">
+              <div className="space-y-1">
+                <span className="text-[9px] font-mono uppercase tracking-wider text-green-400 font-extrabold bg-green-500/10 border border-green-500/20 px-2.5 py-0.5 rounded">
+                  {selectedService.markupStat}
                 </span>
-                <h4 className="text-xl font-bold text-slate-800 mb-4">
-                  Better Value for Buyers
+                <h3 className="text-xl sm:text-2xl font-bold tracking-tight text-white font-sans">
+                  {selectedService.title} — Realignment Structure
+                </h3>
+              </div>
+              <div className="px-4 py-2 bg-slate-900 rounded-xl border border-slate-800 text-orange-500 font-mono text-sm font-bold">
+                {selectedService.highlightStat}
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+              <div className="lg:col-span-6 space-y-4">
+                <h4 className="text-xs uppercase font-mono tracking-widest text-[#22c55e] font-extrabold">
+                  The Problem & Solution:
                 </h4>
-                <p className="text-slate-600 text-sm leading-relaxed mb-6">
-                  Sourcing standard industrial contracting or management consulting shouldn't carry a massive mark-up chain. We match procurement budgets directly to on-site production teams. This cuts out bloated consulting broker margins so you pay solely for delivered execution.
+                <p className="text-slate-300 text-sm leading-relaxed font-sans">
+                  {selectedService.overview}
                 </p>
               </div>
-              <ul className="space-y-2.5 border-t border-slate-100 pt-5 text-xs text-slate-500 font-mono">
-                <li className="flex items-center gap-2">
-                  <Check className="w-4 h-4 text-[#28A745]" /> Direct, fee-free invoice structures
-                </li>
-                <li className="flex items-center gap-2">
-                  <Check className="w-4 h-4 text-[#28A745]" /> Granular cost verification
-                </li>
-                <li className="flex items-center gap-2">
-                  <Check className="w-4 h-4 text-[#28A745]" /> Lower financial transaction overhead
-                </li>
-              </ul>
-            </div>
 
-            {/* Card 2: Greater Opportunity for Workers */}
-            <div className="glass-panel bg-white border border-slate-150 rounded-2xl p-8 hover:border-[#123456]/25 transition-all duration-300 flex flex-col justify-between shadow-sm">
-              <div>
-                <span className="text-xs font-mono text-[#123456] tracking-widest uppercase block mb-3 font-bold">
-                  02. FOR STAFF & PROVIDERS
-                </span>
-                <h4 className="text-xl font-bold text-slate-800 mb-4">
-                  Greater Opportunity for Workers
-                </h4>
-                <p className="text-slate-600 text-sm leading-relaxed mb-6">
-                  Workers are the engines of structural success, yet broker frameworks typically siphon off key portions of their payouts. MCT Aligned bypasses these fee structures, allowing workers to retain more of their direct compensation and build stable livelihoods.
-                </p>
-              </div>
-              <ul className="space-y-2.5 border-t border-slate-100 pt-5 text-xs text-slate-500 font-mono">
-                <li className="flex items-center gap-2">
-                  <Check className="w-4 h-4 text-[#123456]" /> Higher relative wage allocations
-                </li>
-                <li className="flex items-center gap-2">
-                  <Check className="w-4 h-4 text-[#123456]" /> Transparent reward opportunities
-                </li>
-                <li className="flex items-center gap-2">
-                  <Check className="w-4 h-4 text-[#123456]" /> Stable relationship pipelines
-                </li>
-              </ul>
-            </div>
-
-            {/* Card 3: More Efficient Business Models */}
-            <div className="glass-panel bg-white border border-slate-150 rounded-2xl p-8 hover:border-[#123456]/25 transition-all duration-300 flex flex-col justify-between shadow-sm">
-              <div>
-                <span className="text-xs font-mono text-indigo-600 tracking-widest uppercase block mb-3 font-bold">
-                  03. INTEGRATED FLOWS
-                </span>
-                <h4 className="text-xl font-bold text-slate-800 mb-4">
-                  More Efficient Business Models
-                </h4>
-                <p className="text-slate-600 text-sm leading-relaxed mb-6">
-                  Complex administrative channels invite friction. By consolidating software tooling, trimming reporting loops, and deploying direct alignment consulting, operations run with incredible agility, preventing resource bloat.
-                </p>
-              </div>
-              <ul className="space-y-2.5 border-t border-slate-100 pt-5 text-xs text-slate-500 font-mono">
-                <li className="flex items-center gap-2">
-                  <Check className="w-4 h-4 text-indigo-600" /> Standardized workflow models
-                </li>
-                <li className="flex items-center gap-2">
-                  <Check className="w-4 h-4 text-indigo-600" /> Rapid process response loops
-                </li>
-                <li className="flex items-center gap-2">
-                  <Check className="w-4 h-4 text-indigo-600" /> Zero administrative bloat
-                </li>
-              </ul>
-            </div>
-
-          </div>
-        </div>
-      </section>
-
-      {/* 5. How It Works Section */}
-      <section className="py-20 bg-white relative overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          
-          <div className="text-center space-y-4 mb-16">
-            <h2 className="text-xs uppercase tracking-widest text-[#28A745] font-mono font-bold">
-              The Path To Alignment
-            </h2>
-            <h3 className="text-3xl sm:text-4xl font-extrabold text-[#123456] tracking-tight">
-              A Direct, Three-Step Alignment Process
-            </h3>
-            <p className="text-slate-600 text-base max-w-2xl mx-auto">
-              Our methodology eliminates convoluted corporate plans in favor of direct, measurable actions.
-            </p>
-          </div>
-
-          <div className="relative">
-            {/* Visual connector line in between steps (desktop only) */}
-            <div className="absolute top-1/2 left-4 right-4 h-0.5 bg-gradient-to-r from-[#123456]/10 to-[#28A745]/10 -translate-y-1/2 hidden lg:block z-0" />
-            
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 relative z-10">
-              
-              {/* Step 1 */}
-              <div className="glass-card rounded-2xl p-8 text-left space-y-5 relative">
-                <div className="w-12 h-12 rounded-xl bg-[#123456] text-white font-mono text-xl font-bold flex items-center justify-center shadow-md">
-                  01
+              <div className="lg:col-span-6 grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div>
+                  <h4 className="text-xs uppercase font-mono tracking-widest text-[#f97316] mb-3 font-extrabold">
+                    ShareLoop Benefits:
+                  </h4>
+                  <ul className="space-y-2 text-xs text-slate-350">
+                    {selectedService.benefits.map((b, key) => (
+                      <li key={key} className="flex gap-2 items-start">
+                        <Check className="w-3.5 h-3.5 text-green-500 shrink-0 mt-0.5" />
+                        <span>{b}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
-                <h4 className="text-lg font-bold text-slate-800">Identify Inefficiencies</h4>
-                <p className="text-slate-600 text-sm leading-relaxed">
-                  We audit your current logistics and resource pools to pinpoint where brokers, redundant administrative handoffs, or software fees are diluting key values.
-                </p>
-                <span className="text-[10px] font-mono text-slate-400 font-bold tracking-wider block pt-2 border-t border-slate-100">
-                  VALUE CHAIN DIAGNOSTIC
-                </span>
-              </div>
-
-              {/* Step 2 */}
-              <div className="glass-card rounded-2xl p-8 text-left space-y-5 relative">
-                <div className="w-12 h-12 rounded-xl bg-[#123456] text-white font-mono text-xl font-bold flex items-center justify-center shadow-md">
-                  02
+                <div>
+                  <h4 className="text-xs uppercase font-mono tracking-widest text-slate-400 mb-3 font-extrabold">
+                    Direct Operations Outcomes:
+                  </h4>
+                  <ul className="space-y-2 text-xs text-slate-350">
+                    {selectedService.outcomes.map((o, key) => (
+                      <li key={key} className="flex gap-2 items-start">
+                        <span className="w-1.5 h-1.5 bg-orange-500 rounded-full shrink-0 mt-1.5" />
+                        <span>{o}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
-                <h4 className="text-lg font-bold text-slate-800">Align Incentives</h4>
-                <p className="text-slate-600 text-sm leading-relaxed">
-                  We rewrite commission mechanics, draft smart operational alignment pathways, and deploy structures where both buyers and workers' reward parameters are locked in unison.
-                </p>
-                <span className="text-[10px] font-mono text-slate-400 font-bold tracking-wider block pt-2 border-t border-slate-100">
-                  INCENTIVE REALIGNMENT
-                </span>
               </div>
-
-              {/* Step 3 */}
-              <div className="glass-card rounded-2xl p-8 text-left space-y-5 relative">
-                <div className="w-12 h-12 rounded-xl bg-[#28A745] text-white font-mono text-xl font-bold flex items-center justify-center shadow-md">
-                  03
-                </div>
-                <h4 className="text-lg font-bold text-slate-800">Deliver Measurable Value</h4>
-                <p className="text-slate-600 text-sm leading-relaxed">
-                  We deploy automated scheduling, optimize software licensing, and manage direct transactions, keeping admin spend ultra-low while quality remains high.
-                </p>
-                <span className="text-[10px] font-mono text-slate-400 font-bold tracking-wider block pt-2 border-t border-slate-100">
-                  METRIC CONFIRMATION
-                </span>
-              </div>
-
             </div>
-          </div>
 
-          {/* Quick Consultation Trigger */}
-          <div className="mt-16 text-center">
-            <div className="inline-block glass-panel bg-slate-50 border border-slate-150 rounded-2xl p-6 max-w-2xl text-center shadow-sm">
-              <p className="text-sm text-slate-700">
-                Ready to find where your operations are leaking cash?
-              </p>
+            <div className="pt-6 border-t border-slate-900 flex flex-wrap items-center justify-between gap-4">
+              <span className="text-xs text-slate-450 font-mono">
+                Looking to map direct channels for {selectedService.title}? Connect with Brian now.
+              </span>
               <button
                 onClick={() => handleScrollToSection("contact")}
-                className="mt-4 px-6 py-2.5 bg-[#123456] text-white rounded-md text-xs font-bold uppercase tracking-wider transition-all hover:bg-opacity-90 shadow-sm active:scale-95 duration-200 cursor-pointer"
+                className="px-6 py-2.5 bg-[#f97316] hover:bg-orange-600 text-white font-bold rounded-lg text-xs uppercase tracking-wider transition-all shadow-md active:scale-95 duration-200 cursor-pointer"
               >
-                Schedule Diagnostic Analysis
+                Inquire Directly
               </button>
             </div>
           </div>
@@ -651,39 +605,83 @@ export default function App() {
         </div>
       </section>
 
-      {/* 6. Video Integration Showcase Section */}
-      <section className="py-20 bg-slate-50 border-y border-slate-100 relative">
+      {/* 4. "SHARELOOP FLIPS THE CHAIN" Step Sequencer Section */}
+      <section className="py-24 bg-slate-950 relative border-t border-slate-900 overflow-hidden text-left" id="about">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          
+          <div className="text-center space-y-4 mb-20 max-w-3xl mx-auto">
+            <span className="text-xs uppercase tracking-widest text-[#22c55e] font-mono font-extrabold block">
+              Batch pooled production workflow
+            </span>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight font-sans">
+              SHARELOOP <span className="text-orange-500">FLIPS THE CHAIN</span>
+            </h2>
+            <p className="text-slate-350 text-sm sm:text-base">
+              Members fund production first. We make in batches. Fewer businesses sit between your dollar and the work. Our direct credits mechanism locks in reliable wholesale value.
+            </p>
+          </div>
+
+          <div className="relative">
+            {/* Horizontal connection path line */}
+            <div className="absolute top-12 left-6 right-6 h-0.5 bg-gradient-to-r from-orange-500/30 via-green-500/30 to-orange-500/30 hidden lg:block z-0" />
+            
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 relative z-10">
+              {VALUES.map((val, idx) => (
+                <div 
+                  key={idx} 
+                  className="p-6 rounded-2xl bg-[#090f1d] border border-slate-900 hover:border-orange-500/30 transition-all duration-300 flex flex-col justify-between space-y-4 shadow-xl text-left"
+                >
+                  <div className="space-y-4">
+                    <div className="w-10 h-10 rounded-lg bg-orange-600/10 border border-orange-500/30 flex items-center justify-center text-orange-500 text-glow-orange shrink-0">
+                      {getIcon(val.iconName, "w-5 h-5")}
+                    </div>
+                    <h3 className="text-base font-extrabold text-white tracking-tight">{val.title}</h3>
+                    <p className="text-slate-400 text-xs leading-relaxed font-sans">{val.description}</p>
+                  </div>
+                  <span className="text-[9px] font-mono text-slate-500 font-bold block pt-3 border-t border-slate-905">
+                    STAGE OVERVIEV — 0{idx + 1}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      {/* 5. Video Integration abstract showcase loop (Dark themed) */}
+      <section className="py-24 bg-[#050811] relative border-b border-slate-950 overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             
             <div className="lg:col-span-5 space-y-6 text-left">
-              <div className="w-9 h-1 bg-[#28A745] rounded-full" />
-              <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-800 font-sans tracking-tight">
-                Watch Our Operational Showcase Loop
+              <div className="w-12 h-1 bg-orange-500 rounded-full" />
+              <h3 className="text-3xl font-extrabold text-white font-sans tracking-tight">
+                Inspect Realized Flow Loops
               </h3>
-              <p className="text-slate-650 text-sm leading-relaxed">
+              <p className="text-slate-300 text-sm leading-relaxed">
                 MCT Aligned LLC deploys software networks to map logistics, manage inventories, and streamline worker matching systems. Watch our abstract pipeline sequence to see how values transfer smoothly without hitting intermediate toll-gates.
               </p>
               
-              <div className="p-4 bg-white border border-slate-200 rounded-xl flex items-center justify-between shadow-sm">
+              <div className="p-4 bg-slate-950 border border-slate-900 rounded-2xl flex items-center justify-between shadow-xl">
                 <div>
-                  <span className="block text-[11px] uppercase tracking-wider text-slate-450 font-mono font-medium">LOOPING RESOURCE WAVEFORM</span>
-                  <span className="text-xs font-bold text-slate-700">Abstract Ecosystem Rendering</span>
+                  <span className="block text-[9px] uppercase tracking-wider text-slate-500 font-mono">FLOW VISUALS</span>
+                  <span className="text-xs font-semibold text-slate-300">Continuous Resource Sequence</span>
                 </div>
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-2">
                   <button
                     onClick={toggleVideoPlay}
-                    className="p-2.5 bg-slate-50 hover:bg-slate-100 border border-slate-200 text-[#123456] rounded-lg transition"
+                    className="p-2 bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-200 rounded-lg transition shrink-0"
                     title={isVideoPlaying ? "Pause Video" : "Play Video"}
                   >
                     {isVideoPlaying ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4" />}
                   </button>
                   <button
                     onClick={toggleVideoMute}
-                    className="p-2.5 bg-slate-50 hover:bg-slate-100 border border-slate-200 text-slate-700 rounded-lg transition"
+                    className="p-2 bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-200 rounded-lg transition shrink-0"
                     title={isVideoMuted ? "Unmute" : "Mute"}
                   >
-                    {isVideoMuted ? <VolumeX className="w-4 h-4 text-rose-600" /> : <Volume2 className="w-4 h-4 text-[#28A745]" />}
+                    {isVideoMuted ? <VolumeX className="w-4 h-4 text-orange-500" /> : <Volume2 className="w-4 h-4 text-[#22c55e]" />}
                   </button>
                 </div>
               </div>
@@ -691,7 +689,7 @@ export default function App() {
 
             {/* Video Player */}
             <div className="lg:col-span-7">
-              <div className="relative group rounded-2xl overflow-hidden border border-slate-150 bg-white shadow-lg aspect-video flex items-center justify-center">
+              <div className="relative group rounded-3xl overflow-hidden border border-slate-900 bg-slate-950 shadow-2xl aspect-video flex items-center justify-center">
                 <video
                   ref={videoRef}
                   src="https://assets.mixkit.co/videos/preview/mixkit-background-of-digital-neon-particles-43187-large.mp4"
@@ -700,15 +698,11 @@ export default function App() {
                   muted={isVideoMuted}
                   playsInline
                   onClick={toggleVideoPlay}
-                  className="w-full h-full object-cover cursor-pointer hover:scale-[1.01] transition-transform duration-500"
+                  className="w-full h-full object-cover cursor-pointer hover:scale-[1.01] transition-transform duration-700"
                 />
-                
-                {/* Embedded dynamic glass controls overlay */}
-                <div className="absolute top-4 right-4 bg-white/95 text-[10px] font-mono text-[#28A745] font-bold px-2.5 py-1 rounded-md border border-slate-200 shadow-sm pointer-events-none select-none uppercase">
-                  DEMO AUTOPLAY (MUTED)
+                <div className="absolute top-4 right-4 bg-slate-950/95 text-[9px] font-mono text-[#22c55e] font-extrabold px-2.5 py-1 rounded-md border border-slate-800 shadow shadow-amber-500/10 pointer-events-none select-none uppercase">
+                  DIRECT PIPELINE VIDEO
                 </div>
-
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-900/10 to-transparent pointer-events-none" />
               </div>
             </div>
 
@@ -716,210 +710,40 @@ export default function App() {
         </div>
       </section>
 
-      {/* 7. About Page Section */}
-      <section id="about" className="py-20 bg-white relative border-b border-slate-100">
+      {/* 6. Testimonials Endorsements */}
+      <section className="py-24 bg-slate-950 relative overflow-hidden border-b border-slate-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 text-left">
-            
-            {/* Left Column info */}
-            <div className="lg:col-span-5 space-y-6">
-              <span className="text-xs font-mono text-[#28A745] font-bold uppercase tracking-widest block">
-                WHO WE ARE
-              </span>
-              <h2 className="text-3xl sm:text-4xl font-extrabold text-[#123456] tracking-tight">
-                Committed to Long-Term Structural Value
-              </h2>
-              <p className="text-slate-650 text-sm leading-relaxed">
-                MCT Aligned LLC was founded by Brian on a singular, powerful premise: business transactions shouldn't be diluted by excessive broker tolls. We construct operating networks where workers are fairly compensated for their outputs, and buyers receive clear value directly.
-              </p>
-
-              <div className="space-y-4">
-                <div className="p-4 bg-slate-50 border border-slate-150 rounded-xl">
-                  <h4 className="text-sm font-bold text-[#123456] uppercase tracking-wider mb-1">Company Mission</h4>
-                  <p className="text-slate-600 text-xs sm:text-sm leading-normal">
-                    To optimize corporate logistics, eliminate expensive middlemen markups, and empower organizations with robust transparency.
-                  </p>
-                </div>
-                <div className="p-4 bg-slate-50 border border-slate-150 rounded-xl">
-                  <h4 className="text-sm font-bold text-[#123456] uppercase tracking-wider mb-1">Our Vision</h4>
-                  <p className="text-slate-600 text-xs sm:text-sm leading-normal">
-                    A streamlined trading landscape where buyer expenditures match original creator earnings as cleanly as possible.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* Right Column core values selection */}
-            <div className="lg:col-span-7 space-y-6">
-              <span className="text-xs font-mono text-[#123456] uppercase tracking-widest block font-bold">
-                CORE VALUES
-              </span>
-              <h3 className="text-2xl font-bold text-slate-800">
-                The Principles Driving Our Decisions
-              </h3>
-              
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {VALUES.map((val, idx) => (
-                  <div key={idx} className="p-5 bg-slate-50 border border-slate-150 rounded-xl space-y-3 hover:border-[#28A745]/30 transition duration-250 shadow-sm">
-                    <div className="w-9 h-9 rounded-lg bg-[#28A745]/10 border border-[#28A745]/20 text-[#28A745] flex items-center justify-center">
-                      {getIcon(val.iconName, "w-4.5 h-4.5")}
-                    </div>
-                    <h4 className="text-base font-bold text-slate-800">{val.title}</h4>
-                    <p className="text-slate-600 text-xs leading-relaxed">
-                      {val.description}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </section>
-
-      {/* 8. Services Page Section */}
-      <section id="services" className="py-20 bg-slate-50 relative border-b border-slate-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          
-          <div className="max-w-3xl mx-auto text-center space-y-4 mb-16">
-            <h2 className="text-xs uppercase tracking-widest text-[#28A745] font-mono font-bold">
-              Flexible Adaptable Solutions
-            </h2>
-            <h3 className="text-3xl sm:text-4xl font-extrabold text-[#123456] tracking-tight">
-              Our Professional Advisory Services
-            </h3>
-            <p className="text-slate-650 text-base font-sans">
-              Explore our core methodologies aimed at driving operational efficiency and cost reductions.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start text-left">
-            
-            {/* Left selector menu buttons */}
-            <div className="lg:col-span-4 space-y-2.5">
-              {SERVICES.map((s) => (
-                <button
-                  key={s.id}
-                  onClick={() => setSelectedServiceId(s.id)}
-                  className={`w-full p-4 rounded-xl border text-left transition-all duration-250 flex items-center justify-between cursor-pointer ${
-                    selectedServiceId === s.id
-                      ? "bg-white border-[#28A745] text-[#123456] shadow-md translate-x-1 font-bold"
-                      : "bg-white border-slate-150 text-slate-700 hover:bg-slate-100/60 shadow-sm"
-                  }`}
-                >
-                  <div className="flex items-center gap-3">
-                    <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${
-                      selectedServiceId === s.id ? "bg-[#28A745]/10 text-[#28A745]" : "bg-slate-100 text-slate-500"
-                    }`}>
-                      {getIcon(s.iconName, "w-4 h-4")}
-                    </div>
-                    <div>
-                      <span className="text-sm font-semibold tracking-wide block leading-none">{s.title}</span>
-                      <span className="text-[10px] text-slate-400 mt-1 block">Operational Solution</span>
-                    </div>
-                  </div>
-                  <ArrowUpRight className={`w-4 h-4 transition-transform ${selectedServiceId === s.id ? "text-[#28A745] translate-x-0.5 -translate-y-0.5" : "text-slate-400"}`} />
-                </button>
-              ))}
-            </div>
-
-            {/* Right Detailed Expanded Display (Editable Flexible layout) */}
-            <div className="lg:col-span-8 bg-white border border-slate-150 rounded-2xl p-6 sm:p-8 space-y-6 shadow-sm">
-              
-              <div className="flex flex-wrap items-center justify-between gap-4 border-b border-slate-100 pb-5">
-                <div className="space-y-1">
-                  <span className="text-[10px] font-mono uppercase tracking-wider text-[#28A745] font-bold bg-[#28A745]/10 border border-[#28A745]/20 px-2 py-0.5 rounded">
-                    Operational Advisory
-                  </span>
-                  <h3 className="text-xl sm:text-2xl font-bold text-[#123456]">{selectedService.title}</h3>
-                </div>
-                <div className="w-10 h-10 rounded-xl bg-slate-50 border border-slate-150 flex items-center justify-center text-[#123456] shadow">
-                  {getIcon(selectedService.iconName)}
-                </div>
-              </div>
-
-              <div>
-                <h4 className="text-xs uppercase font-mono tracking-widest text-[#28A745] mb-2 font-bold">Service Overview</h4>
-                <p className="text-slate-650 text-sm leading-relaxed font-sans">{selectedService.overview}</p>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2">
-                <div>
-                  <h4 className="text-xs uppercase font-mono tracking-widest text-[#123456] mb-3 font-bold">Key Benefits</h4>
-                  <ul className="space-y-2 text-xs sm:text-sm text-slate-600">
-                    {selectedService.benefits.map((b, bIdx) => (
-                      <li key={bIdx} className="flex gap-2 items-start font-sans">
-                        <Check className="w-4 h-4 text-[#28A745] shrink-0 mt-0.5" /> <span>{b}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                <div>
-                  <h4 className="text-xs uppercase font-mono tracking-widest text-indigo-600 mb-3 font-bold font-semibold">Expected Outcomes</h4>
-                  <ul className="space-y-2 text-xs sm:text-sm text-slate-600">
-                    {selectedService.outcomes.map((o, oIdx) => (
-                      <li key={oIdx} className="flex gap-2 items-start font-sans">
-                        <span className="w-1.5 h-1.5 bg-[#123456] rounded-full shrink-0 mt-2" /> <span>{o}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-
-              {/* Direct Booking call to action */}
-              <div className="pt-6 border-t border-slate-150 flex flex-wrap items-center justify-between gap-4">
-                <span className="text-xs text-slate-500 font-mono">
-                  Have questions about {selectedService.title}? Ask our AI advisor at the bottom-right.
-                </span>
-                <button
-                  onClick={() => handleScrollToSection("contact")}
-                  className="px-5 py-2.5 bg-[#123456] text-white rounded text-xs font-semibold tracking-wide transition shadow hover:bg-opacity-90 active:scale-95 duration-250 cursor-pointer"
-                >
-                  Consult on this Service
-                </button>
-              </div>
-
-            </div>
-
-          </div>
-        </div>
-      </section>
-
-      {/* 9. Testimonials Section */}
-      <section className="py-20 bg-slate-50 relative overflow-hidden border-b border-slate-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          
-          <div className="max-w-3xl mx-auto text-center space-y-4 mb-16">
-            <h2 className="text-xs uppercase tracking-widest text-[#28A745] font-mono font-bold animate-pulse">
-              Endorsements
-            </h2>
-            <h3 className="text-3xl sm:text-4xl font-extrabold text-[#123456] tracking-tight">
+          <div className="max-w-3xl mx-auto text-center space-y-4 mb-20">
+            <span className="text-xs uppercase tracking-widest text-[#22c55e] font-mono font-extrabold animate-pulse block">
+              Direct verification
+            </span>
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight font-sans">
               What Business Leaders Say
-            </h3>
-            <p className="text-slate-600 text-sm">
-              Read how alignment strategies translate into material financial savings.
+            </h2>
+            <p className="text-slate-350 text-sm">
+              Read how our batch shared-production mechanisms translate into material direct-cost savings.
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
             {TESTIMONIALS.map((t, idx) => (
-              <div key={idx} className="glass-panel p-6 rounded-2xl flex flex-col justify-between space-y-6 bg-white border border-slate-150 shadow-sm font-sans">
+              <div key={idx} className="glass-panel p-6 rounded-2xl flex flex-col justify-between space-y-6 border border-slate-900 shadow-xl bg-slate-900/10 hover:border-orange-500/20 transition-all duration-300">
                 <div>
-                  <div className="flex gap-1 mb-4 text-[#28A745]">
+                  <div className="flex gap-1 mb-4 text-[#22c55e]">
                     {[...Array(t.rating)].map((_, rIdx) => (
-                      <Star key={rIdx} className="w-4 h-4 fill-[#28A745] text-[#28A745]" />
+                      <Star key={rIdx} className="w-4 h-4 fill-[#22c55e] hover:scale-110 transition-transform text-[#22c55e]" />
                     ))}
                   </div>
-                  <p className="text-slate-650 text-sm leading-relaxed italic">
+                  <p className="text-slate-300 text-sm leading-relaxed italic">
                     "{t.quote}"
                   </p>
                 </div>
                 
-                <div className="border-t border-slate-100 pt-4">
-                  <h4 className="text-sm font-bold text-slate-800">{t.author}</h4>
-                  <p className="text-[11px] font-mono text-slate-500 mt-0.5 font-medium">
-                    {t.title} at <span className="text-[#28A745]/90 font-bold">{t.company}</span>
+                <div className="border-t border-slate-900 pt-4">
+                  <h4 className="text-sm font-bold text-slate-100">{t.author}</h4>
+                  <p className="text-[10px] font-mono text-slate-400 mt-0.5">
+                    {t.title} at <span className="text-[#f97316] font-extrabold font-mono">{t.company}</span>
                   </p>
                 </div>
               </div>
@@ -929,15 +753,15 @@ export default function App() {
         </div>
       </section>
 
-      {/* 10. FAQ accordion section */}
-      <section className="py-20 bg-white relative border-b border-slate-100 overflow-hidden">
+      {/* 7. FAQ Accordion Section */}
+      <section className="py-24 bg-[#050811] relative border-b border-slate-950 overflow-hidden text-left">
         <div className="max-w-3xl mx-auto px-4 sm:px-6">
           
-          <div className="text-center space-y-4 mb-16">
-            <h2 className="text-xs uppercase tracking-widest text-[#28A745] font-mono font-bold">
-              Common Questions
-            </h2>
-            <h3 className="text-3xl sm:text-4xl font-extrabold text-[#123456] tracking-tight leading-none">
+          <div className="text-center space-y-4 mb-20">
+            <span className="text-xs uppercase tracking-widest text-[#22c55e] font-mono font-extrabold block">
+              Direct Alignment Intelligence
+            </span>
+            <h3 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight leading-tight">
               Frequently Asked Questions
             </h3>
           </div>
@@ -948,22 +772,22 @@ export default function App() {
               return (
                 <div
                   key={idx}
-                  className="bg-slate-50 border border-slate-150 rounded-xl overflow-hidden transition-all duration-300 shadow-sm"
+                  className="bg-[#090f1d] border border-slate-900 rounded-xl overflow-hidden transition-all duration-300 shadow-xl"
                 >
                   <button
                     onClick={() => setExpandedFAQIndex(isExpanded ? null : idx)}
-                    className="w-full p-5 text-left flex justify-between items-center text-slate-700 hover:text-[#123456] transition duration-200 cursor-pointer focus:outline-none"
+                    className="w-full p-5 text-left flex justify-between items-center text-slate-300 hover:text-orange-500 transition duration-200 cursor-pointer focus:outline-none"
                   >
-                    <span className="text-sm sm:text-base font-semibold pr-4">{faq.question}</span>
+                    <span className="text-sm sm:text-base font-bold pr-4 font-sans">{faq.question}</span>
                     {isExpanded ? (
-                      <ChevronUp className="w-5 h-5 text-[#28A745] shrink-0" />
+                      <ChevronUp className="w-5 h-5 text-orange-500 shrink-0" />
                     ) : (
-                      <ChevronDown className="w-5 h-5 text-slate-400 shrink-0" />
+                      <ChevronDown className="w-5 h-5 text-slate-500 shrink-0" />
                     )}
                   </button>
                   
                   {isExpanded && (
-                    <div className="px-5 pb-5 pt-1 border-t border-slate-150 text-slate-600 text-xs sm:text-sm leading-relaxed">
+                    <div className="px-5 pb-5 pt-1 border-t border-slate-905 text-slate-300 text-xs sm:text-sm leading-relaxed font-sans">
                       {faq.answer}
                     </div>
                   )}
@@ -975,46 +799,46 @@ export default function App() {
         </div>
       </section>
 
-      {/* 11. Contact grid & Lead Form submission */}
-      <section id="contact" className="py-20 bg-slate-50 relative border-t border-slate-100">
+      {/* 8. Contact & Secure Lead Intake Form */}
+      <section id="contact" className="py-24 bg-slate-950 relative border-t border-slate-900 text-left">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 text-left">
             
             {/* Left direct contact details */}
             <div className="lg:col-span-5 space-y-8">
               <div className="space-y-4">
-                <span className="text-xs font-mono text-[#28A745] font-bold uppercase tracking-widest block">
-                  GET IN TOUCH
+                <span className="text-xs font-mono text-[#22c55e] font-extrabold uppercase tracking-widest block">
+                  COMMENCE DIRECT PRODUCTION
                 </span>
-                <h2 className="text-3xl sm:text-4xl font-extrabold text-[#123456] tracking-tight">
+                <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight font-sans">
                   Let's Align Your Value Pool Today
                 </h2>
-                <p className="text-slate-600 text-sm leading-relaxed">
+                <p className="text-slate-300 text-sm leading-relaxed">
                   We are here to discuss how value can be better aligned within your organization. Reach out directly or fill our structured lead form for a free cost check strategy session.
                 </p>
               </div>
 
               <div className="space-y-4">
                 
-                <div className="flex items-center gap-4 p-4 bg-white border border-slate-200 rounded-xl shadow-sm">
-                  <div className="w-10 h-10 bg-[#28A745]/10 text-[#28A745] rounded-lg flex items-center justify-center">
-                    <Phone className="w-5 h-5" />
+                <div className="flex items-center gap-4 p-4 bg-[#090f1d] border border-slate-900 rounded-2xl shadow-xl hover:border-green-500/20 transition duration-300">
+                  <div className="w-10 h-10 bg-green-500/10 text-green-400 rounded-lg flex items-center justify-center shrink-0">
+                    <Phone className="w-5 h-5 hover:rotate-12 transition-transform" />
                   </div>
                   <div>
-                    <span className="text-[10px] text-slate-500 block uppercase font-mono">CALL US DIRECTLY</span>
-                    <a href="tel:5808267475" className="text-base font-bold text-slate-800 hover:text-[#28A745] transition font-mono">
+                    <span className="text-[9px] text-slate-500 block uppercase font-mono font-bold">CALL US DIRECTLY</span>
+                    <a href="tel:5808267475" className="text-sm font-bold text-slate-200 hover:text-orange-500 transition font-mono">
                       580-826-7475
                     </a>
                   </div>
                 </div>
 
-                <div className="flex items-center gap-4 p-4 bg-white border border-slate-200 rounded-xl shadow-sm">
-                  <div className="w-10 h-10 bg-[#123456]/10 text-[#123456] rounded-lg flex items-center justify-center">
-                    <Mail className="w-5 h-5" />
+                <div className="flex items-center gap-4 p-4 bg-[#090f1d] border border-slate-900 rounded-2xl shadow-xl hover:border-orange-500/20 transition duration-300">
+                  <div className="w-10 h-10 bg-orange-500/10 text-orange-400 rounded-lg flex items-center justify-center shrink-0">
+                    <Mail className="w-5 h-5 hover:scale-110 transition-transform" />
                   </div>
                   <div>
-                    <span className="text-[10px] text-slate-400 block uppercase font-mono">EMAIL INBOX</span>
-                    <a href="mailto:brian@mctaligned.com" className="text-base font-bold text-slate-800 hover:text-[#28A745] transition font-mono">
+                    <span className="text-[9px] text-slate-500 block uppercase font-mono font-bold">EMAIL INBOX</span>
+                    <a href="mailto:brian@mctaligned.com" className="text-sm font-bold text-slate-200 hover:text-orange-500 transition font-mono">
                       brian@mctaligned.com
                     </a>
                   </div>
@@ -1022,9 +846,9 @@ export default function App() {
 
               </div>
 
-              {/* Verified company coordinates with actual company logo */}
-              <div className="p-6 bg-white border border-slate-200 rounded-xl space-y-4 shadow-sm hover:border-[#123456]/20 transition-colors duration-200">
-                <div className="w-full max-w-[160px] h-auto overflow-hidden">
+              {/* Verified company coordinates card with MCT logo in Dark layout style */}
+              <div className="p-6 bg-[#090f1d] border border-slate-900 rounded-2xl space-y-4 shadow-xl hover:border-orange-500/30 transition-colors duration-300">
+                <div className="w-full max-w-[150px] h-auto overflow-hidden bg-white p-2 rounded-lg shadow-sm border border-slate-800">
                   <img 
                     src="/src/assets/images/mct_logo_1782154684536.jpg" 
                     alt="MCT Aligned LLC Logo" 
@@ -1032,42 +856,44 @@ export default function App() {
                     referrerPolicy="no-referrer"
                   />
                 </div>
-                <div className="space-y-2 border-t border-slate-100 pt-4">
-                  <span className="text-xs font-mono text-[#123456] block tracking-wider font-bold">MCT Aligned LLC</span>
-                  <p className="text-xs text-slate-600 leading-normal font-sans">
+                <div className="space-y-2 border-t border-slate-900 pt-4">
+                  <span className="text-xs font-mono text-[#f97316] block tracking-wider font-extrabold uppercase">MCT Aligned LLC</span>
+                  <p className="text-xs text-slate-300 leading-normal font-sans">
                     Registered Limited Liability Company addressing inefficient intermediaries and delivering solid outcomes for workers and buyers.
                   </p>
-                  <div className="pt-2 flex items-center gap-1.5 text-[10px] text-slate-500 font-mono uppercase font-bold">
-                    <span className="w-2 h-2 rounded-full bg-[#28A745]" /> ACTIVE US OPERATIONS
+                  <div className="pt-2 flex items-center gap-1.5 text-[10px] text-slate-450 font-mono uppercase font-bold">
+                    <span className="w-2 h-2 rounded-full bg-[#22c55e] animate-ping" /> ACTIVE US OPERATIONS
                   </div>
                 </div>
               </div>
             </div>
 
-            {/* Right side lead intake form */}
-            <div className="lg:col-span-7 bg-white border border-slate-150 rounded-2xl p-6 sm:p-8 shadow-md" id="lead-form-container">
-              <h3 className="text-xl font-bold text-slate-850 mb-2">Request Consultation</h3>
-              <p className="text-slate-500 text-xs sm:text-sm mb-6">
-                Tell us about your organization's setup, and we'll reply to book a cost advisory mapping call.
+            {/* Right side lead intake form (fully dark glass-themed) */}
+            <div className="lg:col-span-7 bg-[#090f1d] border border-slate-900 rounded-3xl p-6 sm:p-10 shadow-2xl relative" id="lead-form-container">
+              <div className="absolute top-0 right-16 w-16 h-0.5 bg-gradient-to-r from-transparent via-green-400 to-transparent" />
+              
+              <h3 className="text-xl font-bold text-slate-100 mb-2">Request Shared Production Consultation</h3>
+              <p className="text-slate-400 text-xs sm:text-sm mb-6">
+                Tell us about your organization's setup, and we'll reply to book an optimization mapping session.
               </p>
 
               <form onSubmit={handleContactSubmit} className="space-y-4">
                 
                 {formStatus === "success" && (
-                  <div className="p-4 bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 rounded-xl text-sm leading-relaxed" id="form-success-alert">
+                  <div className="p-4 bg-green-500/10 border border-green-500/20 text-green-400 rounded-xl text-sm leading-relaxed" id="form-success-alert">
                     {formSuccessMsg}
                   </div>
                 )}
 
                 {formStatus === "error" && (
-                  <div className="p-4 bg-rose-500/10 border border-rose-500/20 text-rose-600 rounded-xl text-sm" id="form-error-alert">
+                  <div className="p-4 bg-rose-500/10 border border-rose-500/20 text-rose-500 rounded-xl text-sm" id="form-error-alert">
                     {formErrorMsg}
                   </div>
                 )}
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="space-y-1.5 text-left">
-                    <label htmlFor="form-name-field" className="text-xs font-semibold text-slate-700">Name *</label>
+                    <label htmlFor="form-name-field" className="text-xs font-bold text-slate-300 font-mono">NAME *</label>
                     <input
                       id="form-name-field"
                       type="text"
@@ -1075,11 +901,11 @@ export default function App() {
                       value={formName}
                       onChange={(e) => setFormName(e.target.value)}
                       placeholder="Jane Doe"
-                      className="w-full bg-slate-50 border border-slate-200 focus:border-[#123456] focus:ring-1 focus:ring-[#123456] text-slate-800 rounded-xl px-4 py-2.5 text-sm outline-none transition"
+                      className="w-full bg-slate-950 border border-slate-800 focus:border-orange-500 focus:ring-1 focus:ring-orange-500 text-slate-100 rounded-xl px-4 py-2.5 text-sm outline-none transition"
                     />
                   </div>
                   <div className="space-y-1.5 text-left">
-                    <label htmlFor="form-email-field" className="text-xs font-semibold text-slate-700">Email *</label>
+                    <label htmlFor="form-email-field" className="text-xs font-bold text-slate-300 font-mono">EMAIL *</label>
                     <input
                       id="form-email-field"
                       type="email"
@@ -1087,48 +913,48 @@ export default function App() {
                       value={formEmail}
                       onChange={(e) => setFormEmail(e.target.value)}
                       placeholder="jane@company.com"
-                      className="w-full bg-slate-50 border border-slate-200 focus:border-[#123456] focus:ring-1 focus:ring-[#123456] text-slate-800 rounded-xl px-4 py-2.5 text-sm outline-none transition"
+                      className="w-full bg-slate-950 border border-slate-800 focus:border-orange-500 focus:ring-1 focus:ring-orange-500 text-slate-100 rounded-xl px-4 py-2.5 text-sm outline-none transition"
                     />
                   </div>
                 </div>
 
                 <div className="space-y-1.5 text-left">
-                  <label htmlFor="form-phone-field" className="text-xs font-semibold text-slate-700">Phone (Optional)</label>
+                  <label htmlFor="form-phone-field" className="text-xs font-bold text-slate-300 font-mono">PHONE (OPTIONAL)</label>
                   <input
                     id="form-phone-field"
                     type="tel"
                     value={formPhone}
                     onChange={(e) => setFormPhone(e.target.value)}
-                    placeholder="580-555-0199"
-                    className="w-full bg-slate-50 border border-slate-200 focus:border-[#123456] focus:ring-1 focus:ring-[#123456] text-slate-800 rounded-xl px-4 py-2.5 text-sm outline-none transition"
+                    placeholder="580-826-7475"
+                    className="w-full bg-slate-950 border border-slate-800 focus:border-orange-500 focus:ring-1 focus:ring-orange-500 text-slate-100 rounded-xl px-4 py-2.5 text-sm outline-none transition"
                   />
                 </div>
 
                 <div className="space-y-1.5 text-left">
-                  <label htmlFor="form-message-field" className="text-xs font-semibold text-slate-700">Message / Organization context *</label>
+                  <label htmlFor="form-message-field" className="text-xs font-bold text-slate-300 font-mono">ORGANIZATION CONTEXT *</label>
                   <textarea
                     id="form-message-field"
                     rows={4}
                     required
                     value={formMessage}
                     onChange={(e) => setFormMessage(e.target.value)}
-                    placeholder="Please tell us what brokers or administrative leaks you suspect, or ask about specific processes..."
-                    className="w-full bg-slate-50 border border-slate-200 focus:border-[#123456] focus:ring-1 focus:ring-[#123456] text-slate-800 rounded-xl px-4 py-2.5 text-sm outline-none resize-none transition"
+                    placeholder="We suspect administrative leaks. Direct us is to save on software/expert labor..."
+                    className="w-full bg-slate-950 border border-slate-800 focus:border-orange-500 focus:ring-1 focus:ring-orange-500 text-slate-100 rounded-xl px-4 py-2.5 text-sm outline-none resize-none transition"
                   />
                 </div>
 
                 <button
                   type="submit"
                   disabled={formStatus === "submitting"}
-                  className="w-full py-3 bg-[#123456] disabled:bg-slate-200 text-white font-bold rounded-xl text-sm tracking-wide shadow transition-all duration-200 active:scale-95 cursor-pointer flex items-center justify-center gap-2 hover:bg-opacity-95"
+                  className="w-full py-3 bg-gradient-to-r from-orange-600 to-orange-500 disabled:from-slate-800 disabled:to-slate-950 text-white font-extrabold rounded-xl text-sm tracking-wide shadow-xl transition-all duration-200 active:scale-95 cursor-pointer flex items-center justify-center gap-2 hover:from-orange-500 hover:to-orange-400"
                 >
                   {formStatus === "submitting" ? (
                     <>
                       <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                      <span>Sending inquiry...</span>
+                      <span>Transmitting secure mapping inquiry...</span>
                     </>
                   ) : (
-                    <span>Send Secure Message</span>
+                    <span>Submit Mapping Inquiry</span>
                   )}
                 </button>
 
@@ -1139,32 +965,32 @@ export default function App() {
         </div>
       </section>
 
-      {/* 12. Footer */}
-      <footer className="bg-slate-900 border-t border-slate-950 py-12 text-slate-400 text-sm">
+      {/* 9. Center aligned footer with Dev credits */}
+      <footer className="bg-slate-950 border-t border-slate-900 py-16 text-slate-500 text-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
           
-          <div className="flex flex-wrap justify-center gap-x-8 gap-y-2 text-xs font-mono uppercase tracking-wider text-slate-300 font-bold">
-            <button onClick={() => setPrivacyOpen(true)} className="hover:text-[#28A745] transition cursor-pointer">
+          <div className="flex flex-wrap justify-center gap-x-8 gap-y-2 text-xs font-mono uppercase tracking-wider text-slate-400 font-bold">
+            <button onClick={() => setPrivacyOpen(true)} className="hover:text-orange-500 transition cursor-pointer">
               Privacy Policy
             </button>
             <span>•</span>
-            <button onClick={() => setTermsOpen(true)} className="hover:text-[#28A745] transition cursor-pointer">
+            <button onClick={() => setTermsOpen(true)} className="hover:text-orange-500 transition cursor-pointer">
               Terms of Service
             </button>
             <span>•</span>
-            <button onClick={() => handleScrollToSection("services")} className="hover:text-[#28A745] transition cursor-pointer">
-              Explore Services
+            <button onClick={() => handleScrollToSection("services")} className="hover:text-orange-500 transition cursor-pointer">
+              Explore Batch Stats
             </button>
           </div>
 
-          <p className="text-slate-300 leading-relaxed font-sans max-w-md mx-auto text-xs sm:text-sm">
+          <p className="text-slate-400 leading-relaxed font-sans max-w-lg mx-auto text-xs sm:text-sm">
             © {new Date().getFullYear()} MCT Aligned LLC. All rights reserved. <br />
             Business optimization services aimed at returning real value to buyers and service producers. <br />
-            Phone: <a href="tel:5808267475" className="hover:text-[#28A745] transition">580-826-7475</a> | Email: <a href="mailto:brian@mctaligned.com" className="hover:text-[#28A745] transition">brian@mctaligned.com</a>
+            Phone: <a href="tel:5808267475" className="hover:text-orange-500 transition">580-826-7475</a> | Email: <a href="mailto:brian@mctaligned.com" className="hover:text-orange-500 transition">brian@mctaligned.com</a>
           </p>
 
-          <p className="text-xs text-slate-450 font-mono">
-            Developed by <a href="https://iwebnext.com" target="_blank" rel="noreferrer" className="text-slate-400 hover:text-[#28A745] underline decoration-slate-600 transition font-bold">iWebNext</a>
+          <p className="text-xs text-slate-500 font-mono">
+            Developed by <a href="https://iwebnext.com" target="_blank" rel="noreferrer" className="text-slate-400 hover:text-orange-500 underline decoration-slate-800 transition font-bold">iWebNext</a>
           </p>
 
         </div>
