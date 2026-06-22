@@ -62,7 +62,7 @@ export default function ThreeCanvas({ scrollPercent }: ThreeCanvasProps) {
   // Pre-load the high-quality business model graphic
   useEffect(() => {
     const img = new Image();
-    img.src = "/src/assets/images/mct_business_model_optimization_1782155040408.jpg";
+    img.src = "/src/assets/images/corporate_aligned_landscape_1782155335259.jpg";
     img.referrerPolicy = "no-referrer";
     img.onload = () => {
       imageRef.current = img;
