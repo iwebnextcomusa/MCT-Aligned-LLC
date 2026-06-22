@@ -1,0 +1,8 @@
+{
+  "name": "MCT Aligned",
+  "description": "Professional responsive website demonstrating MCT Aligned LLC services in business process optimization and cost reduction to align value for workers and buyers.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
